@@ -6,6 +6,10 @@
     const toggleMenu = () => {
         isMenuOpen.value = !isMenuOpen.value
     }
+
+    const goToProfile = () => {
+        navigateTo('/profile')
+    }
 </script>
 
 <template>
@@ -28,7 +32,7 @@
                     </button>
 
                     <div v-if="isMenuOpen" class="absolute right-0 top-full mt-2 min-w-36 rounded-lg border border-gray-200 bg-white p-2 shadow-lg">
-                        <button class="block w-full rounded-md px-4 py-2 text-left hover:bg-gray-100">
+                        <button @click="goToProfile" class="block w-full rounded-md px-4 py-2 text-left hover:bg-gray-100">
                             Profile
                         </button>
 
