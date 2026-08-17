@@ -23,7 +23,7 @@
                 <!-- Notification -->
                 <button type="button" class="relative rounded-full p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700" aria-label="Notification">
                     <Bell size="20"/>
-                    <span class="absolute right-0 top-7 h-2 w-2 rounded-full bg-red-500"></span>
+                    <span class="absolute right-1 top-6 h-2 w-2 rounded-full bg-red-500"></span>
                 </button>
 
                 <!-- User -->
