@@ -1,5 +1,11 @@
 <script setup>
     import {Menu, Bell} from 'lucide-vue-next'
+    import {ref} from 'vue'
+
+    let isMenuOpen = ref(false)
+    const toggleMenu = () => {
+        isMenuOpen.value = !isMenuOpen.value
+    }
 </script>
 
 <template>
@@ -16,9 +22,21 @@
             <!-- right -->
             <div class="flex items-center gap-4">
                 <!-- Mobile Menu Button -->
-                <button type="button" class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 sm:hidden" aria-label="Open menu">
-                    <Menu size="20"/>
-                </button>
+                <div class="relative sm:hidden">
+                    <button type="button" @click="toggleMenu" class="rounded-lg p-2 text-gray-600 hover:bg-gray-100" aria-label="Open menu">
+                        <Menu size="20"/>
+                    </button>
+
+                    <div v-if="isMenuOpen" class="absolute right-0 top-full mt-2 min-w-36 rounded-lg border border-gray-200 bg-white p-2 shadow-lg">
+                        <button class="block w-full rounded-md px-4 py-2 text-left hover:bg-gray-100">
+                            Profile
+                        </button>
+
+                        <button class="block w-full rounded-md px-4 py-2 text-left hover:bg-gray-100">
+                            Logout
+                        </button>
+                    </div>
+                </div>
 
                 <!-- Notification -->
                 <button type="button" class="relative rounded-full p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700" aria-label="Notification">
