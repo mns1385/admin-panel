@@ -9,6 +9,7 @@
 
     const goToProfile = () => {
         navigateTo('/profile')
+        isMenuOpen.value = false
     }
 </script>
 
