@@ -1,5 +1,22 @@
+<script setup lang="ts">
+import { useSidebarStore } from '~/stores/sidebar';
+
+const sidebarStore = useSidebarStore()
+
+const menuItems = [
+    {title: 'Dashboard', path: '/'},
+    {title: 'Users', path: '/users'},
+    {title: 'Products', path: '/products'},
+    {title: 'Orders', path: '/orders'},
+    {title: 'Analytics', path: '/analytics'},
+    {title: 'Settings', path: '/settings'}
+]
+
+</script>
+
 <template>
-    <aside class="h-screen w-64 bg-gray-900 text-white">
+    <aside
+  :class="['fixed left-0 top-0 z-40 h-screen w-64 bg-gray-900 text-white', 'transition-transform duration-300', sidebarStore.isOpen ? 'translate-x-0' : '-translate-x-full', 'md:static md:translate-x-0']">
         <div class="p-4">
             <h1 class="text-2xl font-bold">Workspace</h1>
         </div>
@@ -13,16 +30,3 @@
         </nav>
     </aside>
 </template>
-
-<script setup>
-
-const menuItems = [
-    {title: 'Dashboard', path: '/'},
-    {title: 'Users', path: '/users'},
-    {title: 'Products', path: '/products'},
-    {title: 'Orders', path: '/orders'},
-    {title: 'Analytics', path: '/analytics'},
-    {title: 'Settings', path: '/settings'}
-]
-
-</script>
