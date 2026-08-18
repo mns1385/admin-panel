@@ -1,5 +1,5 @@
 <script setup>
-    import {Menu, Bell} from 'lucide-vue-next'
+    import {Menu, Bell, CircleUserRound} from 'lucide-vue-next'
     import {ref} from 'vue'
 
     let isMenuOpen = ref(false)
@@ -29,7 +29,7 @@
                 <!-- Mobile Menu Button -->
                 <div class="relative sm:hidden">
                     <button type="button" @click="toggleMenu" class="rounded-lg p-2 text-gray-600 hover:bg-gray-100" aria-label="Open menu">
-                        <Menu size="20"/>
+                        <CircleUserRound size="25"/>
                     </button>
 
                     <div v-if="isMenuOpen" class="absolute right-0 top-full mt-2 min-w-36 rounded-lg border border-gray-200 bg-white p-2 shadow-lg">
