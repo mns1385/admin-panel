@@ -2,8 +2,12 @@
     <div>
         <AppHeader/>
 
-        <main>
-            <slot></slot>
-        </main>
+        <div class="flex">
+            <AppSidebar/>
+
+            <main class="flex-1">
+                <slot/>
+            </main>
+        </div>
     </div>
 </template>
