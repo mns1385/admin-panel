@@ -1,7 +1,7 @@
 <script setup>
     import {Menu, Bell, CircleUserRound} from 'lucide-vue-next'
     import {ref} from 'vue'
-import { useSidebarStore } from '~/stores/sidebar'
+    import { useSidebarStore } from '~/stores/sidebar'
 
     let isMenuOpen = ref(false)
     const toggleMenu = () => {
@@ -13,7 +13,7 @@ import { useSidebarStore } from '~/stores/sidebar'
         isMenuOpen.value = false
     }
 
-    const sidebarStore = useSidebarStore
+    const sidebarStore = useSidebarStore()
 </script>
 
 <template>
@@ -25,7 +25,7 @@ import { useSidebarStore } from '~/stores/sidebar'
                 <h1 class="text-xl font-bold text-gray-800">
                     Admin Panel
                 </h1>
-                <button class="p-2 hover:bg-gray-100 sm:hidden" @click="sidebarStore.toggle">
+                <button class="p-2 hover:bg-gray-100 md:hidden" @click="sidebarStore.toggle()">
                     <Menu size="20"/>
                 </button>
             </div>
