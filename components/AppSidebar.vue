@@ -1,13 +1,13 @@
 <template>
     <aside class="h-screen w-64 bg-gray-900 text-white">
         <div class="p-4">
-            <h2 class="text-xl font-bold">Panel</h2>
+            <h1 class="text-2xl font-bold">Workspace</h1>
         </div>
 
         <nav class="mt-4 text-lg">
             <ul>
-                <li v-for="item in menuItems" class="transition px-4 py-2 hover:bg-gray-300 hover:text-black">
-                    <NuxtLink :to="item.path">{{ item.title }}</NuxtLink>
+                <li v-for="item in menuItems">
+                    <NuxtLink :to="item.path" class="transition block px-4 py-2 hover:bg-gray-300 hover:text-black" active-class="bg-gray-300 text-black">{{ item.title }}</NuxtLink>
                 </li>
             </ul>
         </nav>
