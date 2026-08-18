@@ -18,10 +18,13 @@
         <div class="flex h-full items-center justify-between">
 
             <!-- title page -->
-            <div class="flext items-center gap-4">
+            <div class="flex items-center gap-4">
                 <h1 class="text-xl font-bold text-gray-800">
                     Admin Panel
                 </h1>
+                <button class="p-2 hover:bg-gray-100 sm:hidden">
+                    <Menu size="20"/>
+                </button>
             </div>
 
             <!-- right -->
