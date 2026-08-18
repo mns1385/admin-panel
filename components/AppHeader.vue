@@ -1,6 +1,7 @@
 <script setup>
     import {Menu, Bell, CircleUserRound} from 'lucide-vue-next'
     import {ref} from 'vue'
+import { useSidebarStore } from '~/stores/sidebar'
 
     let isMenuOpen = ref(false)
     const toggleMenu = () => {
@@ -11,6 +12,8 @@
         navigateTo('/profile')
         isMenuOpen.value = false
     }
+
+    const sidebarStore = useSidebarStore
 </script>
 
 <template>
@@ -22,7 +25,7 @@
                 <h1 class="text-xl font-bold text-gray-800">
                     Admin Panel
                 </h1>
-                <button class="p-2 hover:bg-gray-100 sm:hidden">
+                <button class="p-2 hover:bg-gray-100 sm:hidden" @click="sidebarStore.toggle">
                     <Menu size="20"/>
                 </button>
             </div>
