@@ -1,9 +1,3 @@
-<script setup lang="ts">
-definePageMeta({
-  layout: 'auth'
-})
-</script>
-
 <template>
     <div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
         <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
