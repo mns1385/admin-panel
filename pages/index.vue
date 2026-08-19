@@ -1,5 +1,7 @@
 <template>
-    <div>
-        <h1>Dashboard</h1>
+    <div class="p-6">
+        <h1 class="text-2xl font-bold">
+            Dashboard
+        </h1>
     </div>
 </template>
