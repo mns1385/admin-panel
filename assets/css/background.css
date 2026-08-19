@@ -1,0 +1,95 @@
+/* Login animated background */
+
+.login-background {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.15), transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15), transparent 30%),
+    #020617;
+}
+
+/* Stars */
+.login-background::before,
+.login-background::after {
+  content: "";
+  position: absolute;
+  inset: -100%;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.9) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.6) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+
+  background-size:
+    120px 120px,
+    180px 180px,
+    260px 260px;
+
+  background-position:
+    0 0,
+    40px 80px,
+    100px 30px;
+
+  animation: stars-move 80s linear infinite;
+}
+
+/* Second star layer */
+.login-background::after {
+  opacity: 0.5;
+  transform: scale(1.2);
+  animation-duration: 120s;
+  animation-direction: reverse;
+}
+
+/* Soft glowing lights */
+.login-glow {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 9999px;
+  pointer-events: none;
+  filter: blur(100px);
+  opacity: 0.25;
+  animation: glow-move 12s ease-in-out infinite alternate;
+}
+
+.login-glow-blue {
+  top: -150px;
+  left: -100px;
+  background: #3b82f6;
+}
+
+.login-glow-purple {
+  right: -150px;
+  bottom: -150px;
+  background: #8b5cf6;
+  animation-delay: 2s;
+}
+
+@keyframes stars-move {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(300px, 300px, 0);
+  }
+}
+
+@keyframes glow-move {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(80px, -50px) scale(1.15);
+  }
+}
+
+/* Keep login content above the background */
+.login-content {
+  position: relative;
+  z-index: 10;
+}
