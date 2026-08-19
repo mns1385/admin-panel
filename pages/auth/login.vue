@@ -7,5 +7,7 @@ definePageMeta({
 </script>
 
 <template>
-    <AppLoginForm/>
+    <div>
+        <AppLoginForm/>
+    </div>
 </template>
