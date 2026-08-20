@@ -2,6 +2,7 @@
 import {ref} from 'vue'
 import { useAuthStore } from '~/stores/auth'
 const authStore = useAuthStore()
+const router = useRouter()
 
 const email = ref('')
 const password = ref('')
@@ -15,7 +16,7 @@ const isValidEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
  
-const handleLogin = () => {
+const handleLogin = async () => {
     emailError.value = ''
     passwordError.value = ''
 
@@ -38,6 +39,7 @@ const handleLogin = () => {
     isLoding.value = true
 
     authStore.login()
+    await router.push('/')
 
     isLoding.value = false
 }
