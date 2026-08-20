@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
+import { useAuthStore } from '~/stores/auth'
+const authStore = useAuthStore()
 
 const email = ref('')
 const password = ref('')
@@ -34,6 +36,10 @@ const handleLogin = () => {
     }
 
     isLoding.value = true
+
+    authStore.login()
+
+    isLoding.value = false
 }
 </script>
 
