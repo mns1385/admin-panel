@@ -5,10 +5,12 @@ export const useAuthStore = defineStore('auth', () => {
 
     const login = () => {
         isAuthenticated.value = true
+        localStorage.setItem('Authenticated', 'true')
     }
 
     const logout = () => {
         isAuthenticated.value = false
+        localStorage.setItem('Authenticated', 'false')
     }
 
     return {

@@ -3,7 +3,7 @@ export default defineNuxtRouteMiddleware(() => {
         return
     }
 
-    const isAuthenticated = localStorage.getItem('isAuthenticated')
+    let isAuthenticated = localStorage.getItem('isAuthenticated')
 
     if (isAuthenticated !== 'true') {
         window.location.replace('/auth/login')
