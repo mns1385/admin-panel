@@ -11,6 +11,7 @@ export const useAuthStore = defineStore('auth', () => {
     const logout = () => {
         isAuthenticated.value = false
         localStorage.setItem('isAuthenticated', 'false')
+        window.location.reload()
     }
 
     return {

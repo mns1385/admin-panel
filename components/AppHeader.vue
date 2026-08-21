@@ -76,7 +76,7 @@
                 </NuxtLink>
 
                 <!-- Logout -->
-                <button type="button" class="hidden rounded-lg px-3 py-2 text-sm font-medium text-red-600 transition bg-red-100 hover:bg-red-500 hover:text-white sm:block">
+                <button type="button" @click="authStore.logout()" class="hidden rounded-lg px-3 py-2 text-sm font-medium text-red-600 transition bg-red-100 hover:bg-red-500 hover:text-white sm:block">
                     Logout
                 </button>
             </div>
