@@ -2,7 +2,8 @@
 import AppLoginForm from '~/components/auth/AppLoginForm.vue';
 
 definePageMeta({
-    layout: 'auth'
+    layout: 'auth',
+    middleware: 'guest'
 })
 </script>
 
