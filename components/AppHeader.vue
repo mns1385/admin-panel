@@ -2,6 +2,7 @@
     import {Menu, Bell, CircleUserRound} from 'lucide-vue-next'
     import {ref} from 'vue'
     import { useSidebarStore } from '~/stores/sidebar'
+    import { useAuthStore } from '~/stores/auth'
 
     let isMenuOpen = ref(false)
     const toggleMenu = () => {
@@ -14,6 +15,7 @@
     }
 
     const sidebarStore = useSidebarStore()
+    const authStore = useAuthStore()
 </script>
 
 <template>
@@ -43,7 +45,7 @@
                             Profile
                         </button>
 
-                        <button class="block w-full rounded-md px-4 py-2 text-left hover:bg-gray-100">
+                        <button type="button" @click="authStore.logout()" class="block w-full rounded-md px-4 py-2 text-left hover:bg-gray-100">
                             Logout
                         </button>
                     </div>
