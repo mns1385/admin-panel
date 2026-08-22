@@ -4,7 +4,7 @@
 
 <template>
     <form>
-        <div>
+        <div class="mb-4">
             <label for="email" class="mb-2 block text-xl font-medium text-white text-left">
                 Email :
             </label>
@@ -12,7 +12,7 @@
             class="block rounded-lg w-full text-xl px-4 py-1 ">
         </div>
 
-        <div>
+        <div class="mb-4">
             <label for="username" class="mb-2 block text-xl font-medium text-white text-left">
                 UserName :
             </label>
@@ -20,7 +20,7 @@
             class="block rounded-lg w-full text-xl px-4 py-1 ">
         </div>
 
-        <div>
+        <div class="mb-4">
             <label for="password" class="mb-2 block text-xl font-medium text-white text-left">
                 Password :
             </label>
