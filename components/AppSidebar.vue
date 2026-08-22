@@ -15,7 +15,7 @@ const menuItems = [
 </script>
 
 <template>
-    <aside :class="['fixed left-0 top-16 z-40 h-screen w-64 bg-gray-900 text-white', 'transition-transform duration-300', sidebarStore.isOpen ? 'translate-x-0' : '-translate-x-full', 'md:static md:translate-x-0']">
+    <aside :class="['fixed left-0 top-16 z-40 h-screen w-64 bg-gray-200 text-black', 'transition-transform duration-300', sidebarStore.isOpen ? 'translate-x-0' : '-translate-x-full', 'md:static md:translate-x-0']">
         <div class="p-4">
             <h1 class="text-2xl font-bold">Workspace</h1>
         </div>
