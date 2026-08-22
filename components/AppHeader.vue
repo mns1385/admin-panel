@@ -51,7 +51,7 @@
                         </button>
 
                         <button type="button" @click="authStore.logout()" 
-                        class="block w-full rounded-md px-4 py-2 text-left hover:bg-gray-100">
+                        class="block w-full rounded-md px-4 py-2 text-left text-red-500 font-bold bg-red-100 hover:bg-red-500 hover:text-white">
                             Logout
                         </button>
                     </div>
