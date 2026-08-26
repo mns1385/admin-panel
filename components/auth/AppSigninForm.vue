@@ -28,7 +28,8 @@
             class="block rounded-lg w-full text-xl px-4 py-1 ">
         </div>
 
-        <button type="submit" class="w-40 text-white text-xl bg-blue-500 rounded-full p-2 hover:bg-blue-600 active:bg-blue-700">
+        <button type="submit" 
+        class="w-40 text-white text-xl bg-blue-500 rounded-full p-2 hover:bg-blue-600 active:bg-blue-700">
             Signin
         </button>
     </form>
