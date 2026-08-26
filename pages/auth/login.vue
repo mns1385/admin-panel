@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import AppLoginForm from '~/components/auth/AppLoginForm.vue';
+import { Component } from 'lucide-vue-next';
+import { ref } from 'vue'
+
+import Login from '~/components/auth/AppLoginForm.vue'
+import Signin from '~/components/auth/AppSigninForm.vue'
 
 definePageMeta({
     layout: 'auth',
     middleware: 'guest'
 })
+
+let forms = ref(true)
 </script>
 
 <template>
@@ -18,7 +24,12 @@ definePageMeta({
                 Sign in to your account
             </p>
 
-            <AppLoginForm/>
+            <component :is="forms? Login: Signin"/>
         </div>
+
+        <button type="button" @click="forms = !forms"
+        class="text-lg text-blue-500">
+            {{ forms? 'Signin to accont': 'Login to accont' }}
+        </button>
     </div>
 </template>

@@ -46,8 +46,8 @@ const handleLogin = async () => {
 </script>
 
 <template>
-    <form class="space-y-5" @submit.prevent="handleLogin">
-        <div>
+    <form @submit.prevent="handleLogin">
+        <div class="mb-4">
             <label for="email" class="mb-2 block text-xl font-medium text-white text-left">
                 Email :
             </label>
@@ -60,7 +60,7 @@ const handleLogin = async () => {
             </p>
         </div>
 
-        <div>
+        <div class="mb-4">
             <label for="password" class="mb-2 block text-xl font-medium text-white text-left">
                 Password :
             </label>
@@ -73,7 +73,8 @@ const handleLogin = async () => {
             </p>
         </div>
 
-        <button type="submit" class="w-40 text-white text-xl bg-blue-500 rounded-full p-2 hover:bg-blue-600 active:bg-blue-700">
+        <button type="submit" 
+        class="w-40 text-white text-xl bg-blue-500 rounded-full p-2 hover:bg-blue-600 active:bg-blue-700">
             {{ isLoding? 'Logging in...': 'Login' }}
         </button>
     </form>
