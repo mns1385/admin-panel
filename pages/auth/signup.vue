@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppSigninForm from '~/components/auth/AppSignupForm.vue';
+import AppSignupForm from '~/components/auth/AppSignupForm.vue';
 
 definePageMeta({
     layout: 'auth'
@@ -18,7 +18,7 @@ definePageMeta({
                 Sign in to your account
             </p>
 
-            <AppSigninForm/>
+            <AppSignupForm/>
         </div>
 
         <NuxtLink to="/auth/login">Login to your accunt</NuxtLink>
