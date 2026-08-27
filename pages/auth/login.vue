@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Component } from 'lucide-vue-next';
-import { ref } from 'vue'
 import AppLoginForm from '~/components/auth/AppLoginForm.vue';
 
 definePageMeta({

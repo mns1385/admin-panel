@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppSigninForm from '~/components/auth/AppSigninForm.vue';
+import AppSigninForm from '~/components/auth/AppSignupForm.vue';
 
 definePageMeta({
     layout: 'auth'
