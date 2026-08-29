@@ -1,8 +1,6 @@
 export interface VerificationSession {
-    email: string
-    codeHash: string
-    expiresAt: number
-    attempts: number
+    code: number
+    timeOut: number
 }
 
 export const verificationStore = new Map<string, VerificationSession>()

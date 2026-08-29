@@ -1,4 +1,4 @@
-import { randomBytes, randomInt, createHash } from 'node:crypto'
+import { randomInt } from 'node:crypto'
 import { verificationStore } from '~/server/utils/verification'
 
 export default defineEventHandler(async (event) => {
@@ -15,31 +15,17 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    //ساخت Session ID
-    const sessionId = randomBytes(32).toString('hex')
-
     //ساخت کد 5 رقمی
-    const code = randomInt(10000, 100000).toString()
-
-    //هش کردن کد
-    const codeHash = createHash('sha256').update(code).digest('hex')
+    const code = randomInt(10000, 100000)
 
     //زمان انقضا: 5 دقیقه
-    const expiresAt = Date.now() + 5 * 60 * 1000
-
-    //تعداد تلاش
-    const attempts = 0
+    const timeOut = Date.now() + 5 * 60 * 1000
 
     //ذخیره اطلاعات session
-    verificationStore.set(sessionId, {
-        email,
-        codeHash,
-        expiresAt,
-        attempts
+    verificationStore.set(email, {
+        code,
+        timeOut
     })
 
-    return {
-        success: true,
-        sessionId
-    }
+    
 })
