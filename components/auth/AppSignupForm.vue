@@ -1,14 +1,30 @@
 <script setup lang="ts">
-    
+    const email = ref('')
+
+    const sendCode = async () => {
+        try {
+            const response = await $fetch('/api/auth/send-code', {
+                method: 'POST',
+                body: {
+                    email: email.value
+                }
+            })
+
+            console.log(response)
+        } catch (error) {
+            console.error(error)
+        }
+    }
 </script>
 
 <template>
-    <form>
+    <form @submit.prevent ="sendCode">
         <div class="mb-4">
             <label for="email" class="mb-2 block text-xl font-medium text-white text-left">
                 Email :
             </label>
             <input type="email" name="email" id="email" placeholder="Enter your email"
+            v-model="email"
             class="block rounded-lg w-full text-xl px-4 py-1 ">
         </div>
 
@@ -28,9 +44,9 @@
             class="block rounded-lg w-full text-xl px-4 py-1 ">
         </div>
 
-        <button type="submit" 
+        <button type="submit"
         class="w-40 text-white text-xl bg-blue-500 rounded-full p-2 hover:bg-blue-600 active:bg-blue-700">
-            Signin
+            Sign up
         </button>
     </form>
 </template>

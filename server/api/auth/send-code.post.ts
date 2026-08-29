@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
     const sessionId = randomBytes(32).toString('hex')
 
     //ساخت کد 5 رقمی
-    const code = randomInt(10000, 10000).toString()
+    const code = randomInt(10000, 100000).toString()
 
     //هش کردن کد
     const codeHash = createHash('sha256').update(code).digest('hex')
