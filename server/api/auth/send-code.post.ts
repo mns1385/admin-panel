@@ -27,11 +27,15 @@ export default defineEventHandler(async (event) => {
     //زمان انقضا: 5 دقیقه
     const expiresAt = Date.now() + 5 * 60 * 1000
 
+    //تعداد تلاش
+    const attempts = 0
+
     //ذخیره اطلاعات session
     verificationStore.set(sessionId, {
         email,
         codeHash,
-        expiresAt
+        expiresAt,
+        attempts
     })
 
     return {
