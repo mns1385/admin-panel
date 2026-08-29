@@ -1,5 +1,6 @@
 import { randomInt } from 'node:crypto'
 import { verificationStore } from '~/server/utils/verification'
+import { sendVerificationCode } from '~/server/utils/mail'
 
 export default defineEventHandler(async (event) => {
 
@@ -27,5 +28,16 @@ export default defineEventHandler(async (event) => {
         timeOut
     })
 
-    
+    try {
+        await sendVerificationCode(email, code)
+    } catch (error) {
+        throw createError({
+            statusCode: 500,
+            statusMessage: 'Failed to send verification email'
+        })
+    }
+
+    return {
+        success: true
+    }
 })
