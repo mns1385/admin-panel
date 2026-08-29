@@ -3,16 +3,14 @@
 
     const email = ref('')
 
-    const response = await $fetch('/api/auth/send-code', {
-        method: 'POST',
-        body: {
-            email: email.value
-        }
-    })
-
     const sendCode = async () => {
         try {
-            response
+            const response = await $fetch('/api/auth/send-code', {
+                method: 'POST',
+                body: {
+                    email: email.value
+                }
+            })
         } catch (error) {
             throw createError({
                 statusCode: 500,
