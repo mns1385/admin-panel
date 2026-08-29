@@ -48,7 +48,7 @@
 
         <button type="submit"
         class="w-40 text-white text-xl bg-blue-500 rounded-full p-2 hover:bg-blue-600 active:bg-blue-700">
-            Sign up
+            send code
         </button>
     </form>
 </template>
