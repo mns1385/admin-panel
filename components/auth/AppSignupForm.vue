@@ -11,10 +11,11 @@
                     email: email.value
                 }
             })
-
-            console.log(response)
         } catch (error) {
-            console.error(error)
+            throw createError({
+                statusCode: 500,
+                statusMessage: 'Failed to send verificaion'
+            })
         }
     }
 </script>
