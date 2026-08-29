@@ -4,10 +4,13 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "dev": "concurrently \"npm run dev:nuxt\" \"npm run dev:server\"",
+    "dev:nuxt": "nuxt dev",
+    "dev:server": "json-server --watch db.json --port 3001"
+}
   },
   "dependencies": {
     "@pinia/nuxt": "^1.0.2",
