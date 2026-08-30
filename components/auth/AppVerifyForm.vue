@@ -1,5 +1,17 @@
 <script setup lang="ts">
 const codeLength = 5
+const code = ref('')
+
+const getCode = () => {
+
+    const inputs = document.querySelectorAll(
+        'input[data-otp]'
+    ) as NodeListOf<HTMLInputElement>
+
+    code.value = Array.from(inputs)
+        .map(input => input.value)
+        .join('')
+}
 
 const nextInput = (event: Event) => {
     const input = event.target as HTMLInputElement
@@ -11,6 +23,8 @@ const nextInput = (event: Event) => {
 
         next?.focus()
     }
+
+    getCode()
 }
 
 const previousInput = (event: KeyboardEvent) => {
