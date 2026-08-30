@@ -4,18 +4,25 @@ const codeLength = 5
 const nextInput = (event: Event) => {
     const input = event.target as HTMLInputElement
 
-    const next = input.nextElementSibling as HTMLIFrameElement | null
+    input.value = input.value.replace(/\D/g, '')
 
-    next?.focus()
+    if (input.value) {
+        const next = input.nextElementSibling as HTMLIFrameElement | null
+
+        next?.focus()
+    }
 }
 
 const previousInput = (event: KeyboardEvent) => {
     const input = event.target as HTMLInputElement
 
-    if (event.key === 'Backspace' && input.value === '') {
-        const previous = input.previousElementSibling as HTMLInputElement | null
-
-        previous?.focus()
+    if (event.key === 'Backspace') {
+        if (input.value) {
+            input.value = ''
+        } else {
+            const previous = input.previousElementSibling as HTMLInputElement | null
+            previous?.focus()
+        }
     }
 }
 </script>
@@ -27,7 +34,8 @@ const previousInput = (event: KeyboardEvent) => {
             @input="nextInput"
             @keydown="previousInput"
             type="text" maxlength="1" inputmode="numeric"
-            class="w-8 h-14 text-center text-2xl rounded-lg font-bold border border-lg outline-none focus:ring-2">
+            class="w-8 h-14 text-center text-2xl rounded-lg font-bold border 
+            border-lg outline-none border border-gray-400 focus:ring-2 focus:border-blue-500">
         </div>
 
         <button type="submit" 
