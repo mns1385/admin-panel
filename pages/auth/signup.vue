@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import AppSignupForm from '~/components/auth/AppSignupForm.vue';
+import AppVerifyForm from '~/components/auth/AppVerifyForm.vue';
+import { useAuthStore } from '~/stores/auth';
+const authStore = useAuthStore()
 
 definePageMeta({
     layout: 'auth'
@@ -18,7 +21,7 @@ definePageMeta({
                 Sign in to your account
             </p>
 
-            <AppSignupForm/>
+            <component :is="authStore.sendCode? AppVerifyForm: AppSignupForm"/>
         </div>
 
         <NuxtLink to="/auth/login">Login to your accunt</NuxtLink>
