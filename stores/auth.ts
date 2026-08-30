@@ -17,11 +17,17 @@ export const useAuthStore = defineStore('auth', () => {
     const emailCheck = ref('')
     const sendCode = ref(false)
 
+    const sendingCode = (email: string) => {
+        emailCheck.value = email,
+        sendCode.value = true
+    }
+
     return {
         isAuthenticated,
         login,
         logout,
         emailCheck,
-        sendCode
+        sendCode,
+        sendingCode
     }
 })

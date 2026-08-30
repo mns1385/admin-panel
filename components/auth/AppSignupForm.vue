@@ -1,5 +1,7 @@
 <script setup lang="ts">
     import { ref } from 'vue'
+    import { useAuthStore } from '~/stores/auth'
+    const authStore = useAuthStore()
 
     const email = ref('')
     const username = ref('')
@@ -51,6 +53,9 @@
                     password: password.value
                 }
             })
+
+            authStore.sendingCode(email.value)
+            
         } catch (error) {
             throw createError({
                 statusCode: 500,
