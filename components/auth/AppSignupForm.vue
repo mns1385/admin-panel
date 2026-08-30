@@ -18,7 +18,7 @@
     const sendCode = async () => {
         emailError.value = ''
         passwordError.value = ''
-        username.value = ''
+        usernameError.value = ''
 
         if (!email.value) {
             emailError.value = 'Email is required'
@@ -27,7 +27,7 @@
         }
 
         if (!username.value) {
-            usernameError.value = 'username is required'
+            usernameError.value = 'User name is required'
         }
 
         if (!password.value) {
@@ -81,6 +81,7 @@
                 UserName :
             </label>
             <input type="text" name="username" id="username" placeholder="Enter your username"
+            v-model="username"
             class="block rounded-lg w-full text-xl px-4 py-1 ">
             <p v-if="usernameError" class="mt-2 text-sm text-red-400">
                 {{ usernameError }}
@@ -92,15 +93,16 @@
                 Password :
             </label>
             <input type="password" name="password" id="password" placeholder="Enter your password"
+            v-model="password"
             class="block rounded-lg w-full text-xl px-4 py-1 ">
-            <p v-if="password" class="mt-2 text-sm text-red-400">
+            <p v-if="passwordError" class="mt-2 text-sm text-red-400">
                 {{ passwordError }}
             </p>
         </div>
 
         <button type="submit"
         class="w-40 text-white text-xl bg-blue-500 rounded-full p-2 hover:bg-blue-600 active:bg-blue-700">
-            { isLoading? 'Loading...': 'send code'}
+            {{ isLoading? 'Loading...': 'send code' }}
         </button>
     </form>
 </template>
