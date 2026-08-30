@@ -9,7 +9,7 @@ definePageMeta({
 </script>
 
 <template>
-    <div class="mx-auto w-full max-w-sm rounded-3xl border border-white/10 bg-white/30 p-8 shadow-2xl">
+    <div class="mx-auto w-full max-w-sm rounded-3xl border border-white/10 bg-white/30 backdrop-blur-md p-8 shadow-2xl">
         <div class="mb-8 text-center">
             <h1 class="text-3xl font-bold text-white">
                 Welcome Back
