@@ -24,6 +24,6 @@ definePageMeta({
             <component :is="authStore.sendCode? AppVerifyForm: AppSignupForm"/>
         </div>
 
-        <NuxtLink to="/auth/login">Login to your accunt</NuxtLink>
+        <NuxtLink to="/auth/login" class="text-gray-400">Login to your accunt</NuxtLink>
     </div>
 </template>

@@ -9,7 +9,7 @@ definePageMeta({
 </script>
 
 <template>
-    <div class="mx-auto w-full max-w-sm rounded-3xl border border-white/10 bg-white/30 backdrop-blur-md p-8 shadow-2xl">
+    <div class="mx-auto w-full max-w-sm rounded-3xl border border-white/10 bg-white/10 backdrop-blur-md p-8 shadow-2xl">
         <div class="mb-8 text-center">
             <h1 class="text-3xl font-bold text-white">
                 Welcome Back
@@ -22,6 +22,6 @@ definePageMeta({
             <AppLoginForm/>
         </div>
 
-        <NuxtLink to="/auth/signup">Sign up to accunt</NuxtLink>
+        <NuxtLink to="/auth/signup" class="text-gray-400">Sign up to accunt</NuxtLink>
     </div>
 </template>
