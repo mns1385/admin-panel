@@ -1,22 +1,21 @@
 <script setup lang="ts">
 const codeLength = 5
 
-const inputs = ref<HTMLInputElement[]>([])
+const nextInput = (event: Event) => {
+    const input = event.target as HTMLInputElement
 
-const nextInput = (index: number) => {
-    if (index < codeLength - 1) {
-        inputs.value[index + 1]?.focus()
-    }
+    const next = input.nextElementSibling as HTMLIFrameElement | null
+
+    next?.focus()
 }
 </script>
 
 <template>
     <form>
         <div class="flex justify-center gap-4 my-10">
-            <input type="text" maxlength="1" inputmode="numeric"
-            v-for="(_, index) in codeLength" :key="index"
-            ref="el => inputs[index] = el as: HTMLInputElement"
-            @input="nextInput(index)"
+            <input v-for="(_, index) in codeLength" :key="index"
+            @input="nextInput"
+            type="text" maxlength="1" inputmode="numeric"
             class="w-8 h-14 text-center text-2xl rounded-lg font-bold border border-lg outline-none focus:ring-2">
         </div>
 
