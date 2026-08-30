@@ -22,6 +22,6 @@ definePageMeta({
             <AppLoginForm/>
         </div>
 
-        <NuxtLink to="/auth/signup">Signin to accunt</NuxtLink>
+        <NuxtLink to="/auth/signup">Sign up to accunt</NuxtLink>
     </div>
 </template>
