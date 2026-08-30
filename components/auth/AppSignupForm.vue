@@ -2,13 +2,53 @@
     import { ref } from 'vue'
 
     const email = ref('')
+    const username = ref('')
+    const password = ref('')
+    
+    const emailError = ref('')
+    const usernameError = ref('')
+    const passwordError = ref('')
+
+    const isValidEmail = (email: string) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    }
+
+    const isLoading = ref(false)
 
     const sendCode = async () => {
+        emailError.value = ''
+        passwordError.value = ''
+        username.value = ''
+
+        if (!email.value) {
+            emailError.value = 'Email is required'
+        } else if (!isValidEmail(email.value)) {
+            emailError.value = 'Please enter a valid email'
+        }
+
+        if (!username.value) {
+            usernameError.value = 'username is required'
+        }
+
+        if (!password.value) {
+            passwordError.value = 'Password is required'
+        } else if (password.value.length < 8) {
+            passwordError.value = 'Password must be at least 8 characters'
+        }
+
+        if (passwordError.value || emailError.value || usernameError.value) {
+            return
+        }
+
+        isLoading.value = true
+
         try {
             const response = await $fetch('/api/auth/send-code', {
                 method: 'POST',
                 body: {
-                    email: email.value
+                    email: email.value,
+                    username: username.value,
+                    password: password.value
                 }
             })
         } catch (error) {
@@ -17,6 +57,8 @@
                 statusMessage: 'Failed to send verificaion'
             })
         }
+
+        isLoading.value = false
     }
 </script>
 
@@ -29,6 +71,9 @@
             <input type="email" name="email" id="email" placeholder="Enter your email"
             v-model="email"
             class="block rounded-lg w-full text-xl px-4 py-1 ">
+            <p v-if="emailError" class="mt-2 text-sm text-red-400">
+                {{ emailError }}
+            </p>
         </div>
 
         <div class="mb-4">
@@ -37,6 +82,9 @@
             </label>
             <input type="text" name="username" id="username" placeholder="Enter your username"
             class="block rounded-lg w-full text-xl px-4 py-1 ">
+            <p v-if="usernameError" class="mt-2 text-sm text-red-400">
+                {{ usernameError }}
+            </p>
         </div>
 
         <div class="mb-4">
@@ -45,11 +93,14 @@
             </label>
             <input type="password" name="password" id="password" placeholder="Enter your password"
             class="block rounded-lg w-full text-xl px-4 py-1 ">
+            <p v-if="password" class="mt-2 text-sm text-red-400">
+                {{ passwordError }}
+            </p>
         </div>
 
         <button type="submit"
         class="w-40 text-white text-xl bg-blue-500 rounded-full p-2 hover:bg-blue-600 active:bg-blue-700">
-            send code
+            { isLoading? 'Loading...': 'send code'}
         </button>
     </form>
 </template>
