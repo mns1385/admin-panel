@@ -14,9 +14,14 @@ export const useAuthStore = defineStore('auth', () => {
         window.location.reload()
     }
 
+    const emailCheck = ref('')
+    const sendCode = ref(false)
+
     return {
         isAuthenticated,
         login,
-        logout
+        logout,
+        emailCheck,
+        sendCode
     }
 })
