@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 
     //دریافت ایمیل
     const body = await readBody(event)
-    const{ email } = body
+    const{ email, username, password } = body
 
     //برسی ایمیل
     if (!email) {
@@ -24,6 +24,8 @@ export default defineEventHandler(async (event) => {
 
     //ذخیره اطلاعات session
     verificationStore.set(email, {
+        username,
+        password,
         code,
         timeOut
     })
