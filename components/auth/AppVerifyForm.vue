@@ -43,7 +43,11 @@ const previousInput = (event: KeyboardEvent) => {
     }
 }
 
+const isLoading = ref(false)
+
 const verifycode = async () => {
+    isLoading.value = true
+
     try {
         await $fetch('/api/auth/verify-code', {
             method: 'POST',
@@ -57,6 +61,8 @@ const verifycode = async () => {
             authStore.sendCode = false
         }
     }
+
+    isLoading.value = false
 }
 </script>
 
@@ -73,7 +79,7 @@ const verifycode = async () => {
 
         <button type="submit" 
         class="w-full mt-6 py-3 rounded-full text-white font-semibold bg-blue-500 hover:bg-blue-600 active:bg-blue-700">
-            Verify code
+            {{isLoading? 'loading..': 'Verify code'}}
         </button>
     </form>
 </template>
