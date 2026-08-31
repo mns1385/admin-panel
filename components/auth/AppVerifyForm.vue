@@ -48,6 +48,7 @@ const verifycode = async () => {
 
         message.value = response.message
         if (response.success) {
+            authStore.login()
             await navigateTo('/')
         }
     } catch (error:any) {
