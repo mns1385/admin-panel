@@ -11,6 +11,10 @@ onMounted(() => {
     }
 })
 
+onUnmounted(() => {
+    clearInterval(timer)
+})
+
 const nextInput = (event: Event) => {
     const input = event.target as HTMLInputElement
 
@@ -81,10 +85,13 @@ const verifycode = async () => {
 }
 
 let timeOut = ref(300)
-
+let classTimer = ref('')
 const timer = setInterval(() => {
     if (timeOut.value > 0) {
         timeOut.value--
+        if (timeOut.value == 30) {
+            classTimer.value = 'text-red-400'
+        }
     } else {
         clearInterval(timer)
         code.value = ['0', '0', '0', '0', '0']
@@ -105,7 +112,7 @@ const timer = setInterval(() => {
             :class="{classBorder}">
         </div>
 
-        <p>
+        <p class="text-gray-300 font-bold text-xl text-center" :class="{classTimer}">
             Time Out:
             <span>
                 {{ Math.floor(timeOut / 60) }} : {{ Math.floor(timeOut % 60) }}
