@@ -45,7 +45,14 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    
+    const user = await $fetch('/api/users', {
+        method: 'POST',
+        body: {
+            email: email,
+            username: verification.username,
+            password: verification.password
+        }
+    })
 
     verificationStore.delete(email)
 

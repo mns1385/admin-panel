@@ -47,6 +47,9 @@ const verifycode = async () => {
         })
 
         message.value = response.message
+        if (response.success) {
+            await navigateTo('/')
+        }
     } catch (error:any) {
         if (error?.statusCode === 410) {
 

@@ -3,6 +3,6 @@ export default defineEventHandler(async (event) => {
 
     return await $fetch('http://localhost:3001/users', {
         method: 'POST',
-        body
+        body: {}
     })
 })
