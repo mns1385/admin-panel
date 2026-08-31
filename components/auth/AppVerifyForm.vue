@@ -61,7 +61,7 @@ const verifycode = async () => {
 </script>
 
 <template>
-    <form>
+    <form @submit.prevent="verifycode">
         <div class="flex justify-center gap-4 my-10">
             <input v-for="(_, index) in codeLength" :key="index"
             @input="nextInput"
