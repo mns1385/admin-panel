@@ -45,14 +45,21 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    const user = await $fetch('/api/users', {
-        method: 'POST',
-        body: {
-            email: email,
-            username: verification.username,
-            password: verification.password
-        }
-    })
+    try {
+        await $fetch('/api/users', {
+            method: 'POST',
+            body: {
+                email: email,
+                username: verification.username,
+                password: verification.password
+            }
+        })
+    } catch (error) {
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'Account dont created'
+        })
+    }
 
     verificationStore.delete(email)
 
