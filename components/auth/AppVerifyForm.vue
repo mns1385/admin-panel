@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useAuthStore } from '~/stores/auth'
+const authStore = useAuthStore()
+
 const codeLength = 5
 const code = ref('')
 
@@ -36,6 +39,22 @@ const previousInput = (event: KeyboardEvent) => {
         } else {
             const previous = input.previousElementSibling as HTMLInputElement | null
             previous?.focus()
+        }
+    }
+}
+
+const verifycode = async () => {
+    try {
+        await $fetch('/api/auth/verify-code', {
+            method: 'POST',
+            body: {
+                email: authStore.emailCheck,
+                code: code.value
+            }
+        })
+    } catch (error:any) {
+        if (error?.statusCode === 410) {
+            authStore.sendCode = false
         }
     }
 }
