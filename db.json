@@ -1,12 +1,5 @@
 {
-  "users": [
-    {
-      "email": "mohammadmns36@gmail.com",
-      "username": "mns27",
-      "password": "mamad27mns",
-      "id": "l6H1uR2wXzU"
-    }
-  ],
+  "users": [],
   "orders": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

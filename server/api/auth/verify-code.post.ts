@@ -40,7 +40,7 @@ export default defineEventHandler(async (event) => {
 
     if (code !== verification.code) {
         throw createError({
-            statusCode: 400,
+            statusCode: 500,
             statusMessage: 'Invalid verification code'
         })
     }

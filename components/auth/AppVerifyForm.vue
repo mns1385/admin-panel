@@ -5,6 +5,12 @@ const authStore = useAuthStore()
 const codeLength = 5
 const code = ref<string[]>(['','','','',''])
 
+onMounted(() => {
+    if (timer) {
+        clearInterval(timer)
+    }
+})
+
 const nextInput = (event: Event) => {
     const input = event.target as HTMLInputElement
 
@@ -31,10 +37,12 @@ const previousInput = (event: KeyboardEvent) => {
 }
 
 const message = ref('')
+const classBorder = ref('')
 const isLoading = ref(false)
 
 const verifycode = async () => {
     message.value = ''
+    classBorder.value = ''
     isLoading.value = true
 
     try {
@@ -47,6 +55,7 @@ const verifycode = async () => {
         })
 
         message.value = response.message
+        clearInterval(timer)
         if (response.success) {
             authStore.login()
             await navigateTo('/')
@@ -60,11 +69,28 @@ const verifycode = async () => {
         } else if (error?.statusCode === 400) {
 
             message.value = error.statusMessage
+        } else if (error?.statusCode === 500) {
+
+            message.value = error.statusMessage
+            classBorder.value = 'border-red-400 ring-2'
+            code.value = ['','','','','']
         }
     }
 
     isLoading.value = false
 }
+
+let timeOut = ref(300)
+
+const timer = setInterval(() => {
+    if (timeOut.value > 0) {
+        timeOut.value--
+    } else {
+        clearInterval(timer)
+        code.value = ['0', '0', '0', '0', '0']
+        verifycode()
+    }
+}, 1000)
 </script>
 
 <template>
@@ -75,8 +101,16 @@ const verifycode = async () => {
             @keydown="previousInput"
             type="text" maxlength="1" inputmode="numeric"
             class="w-8 h-14 text-center text-2xl rounded-lg font-bold border 
-            border-lg outline-none border border-gray-400 focus:ring-2 focus:border-blue-500">
+            border-lg outline-none border border-gray-400 focus:ring-2 focus:border-blue-500"
+            :class="{classBorder}">
         </div>
+
+        <p>
+            Time Out:
+            <span>
+                {{ Math.floor(timeOut / 60) }} : {{ Math.floor(timeOut % 60) }}
+            </span>
+        </p>
 
         <button type="submit" 
         class="w-full mt-6 py-3 rounded-full text-white font-semibold bg-blue-500 hover:bg-blue-600 active:bg-blue-700">
