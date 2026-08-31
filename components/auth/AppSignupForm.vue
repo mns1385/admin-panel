@@ -15,6 +15,7 @@
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     }
 
+    const message = ref('')
     const isLoading = ref(false)
 
     const sendCode = async () => {
@@ -54,13 +55,16 @@
                 }
             })
 
-            authStore.sendingCode(email.value)
+            if (response.success) {
+                authStore.sendingCode(email.value)
+            }
             
-        } catch (error) {
-            throw createError({
-                statusCode: 500,
-                statusMessage: 'Failed to send verificaion'
-            })
+        } catch (error: any) {
+            if (error.statusCode === 400) {
+                message.value = error.statusMessage
+            } else if (error.statusCode === 500) {
+                message.value = error.statusMessage
+            }
         }
 
         isLoading.value = false
@@ -109,5 +113,9 @@
         class="w-40 text-white text-xl bg-blue-500 rounded-full p-2 hover:bg-blue-600 active:bg-blue-700">
             {{ isLoading? 'Loading...': 'send code' }}
         </button>
+
+        <p v-if="message" class="mt-2 text-sm text-red-400">
+            {{ message }}
+        </p>
     </form>
 </template>
