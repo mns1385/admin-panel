@@ -43,22 +43,32 @@ const previousInput = (event: KeyboardEvent) => {
     }
 }
 
+const message = ref('')
 const isLoading = ref(false)
 
 const verifycode = async () => {
+    message.value = ''
     isLoading.value = true
 
     try {
-        await $fetch('/api/auth/verify-code', {
+        const response = await $fetch('/api/auth/verify-code', {
             method: 'POST',
             body: {
                 email: authStore.emailCheck,
                 code: code.value
             }
         })
+
+        message.value = response.message
     } catch (error:any) {
         if (error?.statusCode === 410) {
+
+            message.value = error.statusMessage
             authStore.sendCode = false
+
+        } else if (error?.statusCode === 400) {
+
+            message.value = error.statusMessage
         }
     }
 
@@ -81,5 +91,6 @@ const verifycode = async () => {
         class="w-full mt-6 py-3 rounded-full text-white font-semibold bg-blue-500 hover:bg-blue-600 active:bg-blue-700">
             {{isLoading? 'loading..': 'Verify code'}}
         </button>
+        <p v-if="message">{{ message }}</p>
     </form>
 </template>
