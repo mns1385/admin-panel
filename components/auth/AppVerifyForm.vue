@@ -3,7 +3,7 @@ import { useAuthStore } from '~/stores/auth'
 const authStore = useAuthStore()
 
 const codeLength = 5
-const code = ref<string[]>(['','','','',''])
+const code = ref<number[]>([])
 
 const nextInput = (event: Event) => {
     const input = event.target as HTMLInputElement
@@ -42,7 +42,7 @@ const verifycode = async () => {
             method: 'POST',
             body: {
                 email: authStore.emailCheck,
-                code: code.value.join('')
+                code: code.value.join()
             }
         })
 
@@ -69,7 +69,7 @@ const verifycode = async () => {
             <input v-for="(_, index) in codeLength" :key="index" v-model="code[index]"
             @input="nextInput"
             @keydown="previousInput"
-            type="text" maxlength="1" inputmode="numeric"
+            type="number" maxlength="1" inputmode="numeric"
             class="w-8 h-14 text-center text-2xl rounded-lg font-bold border 
             border-lg outline-none border border-gray-400 focus:ring-2 focus:border-blue-500">
         </div>
