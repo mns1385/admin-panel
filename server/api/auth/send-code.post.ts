@@ -16,6 +16,20 @@ export default defineEventHandler(async (event) => {
         })
     }
 
+    if (!username) {
+        throw createError ({
+            statusCode: 400,
+            statusMessage: 'User name is required'
+        })
+    }
+
+    if (!password) {
+        throw createError ({
+            statusCode: 400,
+            statusMessage: 'Password is required'
+        })
+    }
+
     //ساخت کد 5 رقمی
     const code = randomInt(10000, 100000)
 

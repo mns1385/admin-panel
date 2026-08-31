@@ -5,10 +5,17 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event)
     const{email, code} = body
 
-    if (!email || !code) {
+    if (!email) {
         throw createError({
             statusCode: 400,
-            statusMessage: 'Email and code are required'
+            statusMessage: 'Email are required'
+        })
+    }
+
+    if (!code) {
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'Code are required'
         })
     }
 
