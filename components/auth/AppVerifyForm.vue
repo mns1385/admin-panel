@@ -7,7 +7,7 @@ const code = ref<string[]>(['','','','',''])
 
 onMounted(() => {
     if (timer) {
-        clearInterval(timer)
+        timer
     }
 })
 
