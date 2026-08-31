@@ -1,69 +1,49 @@
-import { createHash } from "node:crypto";
 import { verificationStore } from "~/server/utils/verification";
 
 export default defineEventHandler(async (event) => {
 
-    //دریافت اطلاعات درخواست
     const body = await readBody(event)
-    const { sessionId, code } = body
-    
-    //برسی اطلاعات ورودی
-    if (!sessionId || !code) {
+    const{email, code} = body
+
+    if (!email || !code) {
         throw createError({
-            status: 400,
-            statusMessage: 'Session ID and code are required'
+            statusCode: 400,
+            statusMessage: 'Email and code are required'
         })
     }
 
-    //پیدا کردن session
-    const session = verificationStore.get(sessionId)
+    const verification =verificationStore.get(email)
 
-    if (!session) {
+    if (!verification) {
         throw createError({
-            statusCode: 404,
-            statusMessage: 'Verification session not found'
+            statusCode: 400,
+            statusMessage: 'Verification not found'
         })
     }
 
-    //برسی زمان انقضا
-    if (Date.now() > session.expiresAt) {
-        verificationStore.delete(sessionId)
+    if (Date.now() > verification.timeOut) {
+
+        verificationStore.delete(email)
 
         throw createError({
             statusCode: 410,
-            statusMessage: 'Verificaion code expired'
+            statusMessage: 'Verification code expired'
         })
     }
 
-    //برسی تعداد تلاش
-    if (session.attempts >= 5) {
-        verificationStore.delete(sessionId)
-
+    if (code !== verification.code) {
         throw createError({
-            statusCode: 429,
-            statusMessage: 'Too many attempts'
-        })
-    }
-
-    //افزایش تعداد تلاش
-    session.attempts++
-
-    //Hash کردن کد وارد شده
-    const codeHash = createHash('sha256').update(code).digest('hex')
-
-    //برسی صحیح بودن کد
-    if (codeHash !== session.codeHash) {
-        throw createError({
-            statusCode: 401,
+            statusCode: 400,
             statusMessage: 'Invalid verification code'
         })
     }
 
-    //تایید موفق
-    verificationStore.delete(sessionId)
+    
+
+    verificationStore.delete(email)
 
     return {
         success: true,
-        message: 'Email verified successfully'
+        message: 'Account created successfully'
     }
 })
