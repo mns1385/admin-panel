@@ -113,7 +113,7 @@ const timer = setInterval(() => {
         </div>
 
         <p class="text-gray-300 font-bold text-xl text-center" :class="{classTimer}">
-            Time Out:
+            Time Out :
             <span>
                 {{ Math.floor(timeOut / 60) }} : {{ Math.floor(timeOut % 60) }}
             </span>
