@@ -91,6 +91,8 @@ const verifycode = async () => {
         class="w-full mt-6 py-3 rounded-full text-white font-semibold bg-blue-500 hover:bg-blue-600 active:bg-blue-700">
             {{isLoading? 'loading..': 'Verify code'}}
         </button>
-        <p v-if="message">{{ message }}</p>
+        <p v-if="message" class="mt-2 text-sm text-red-400">
+            {{ message }}
+        </p>
     </form>
 </template>
