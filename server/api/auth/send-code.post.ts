@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
     }
 
     //ساخت کد 5 رقمی
-    const code = randomInt(10000, 100000)
+    const code = randomInt(10000, 100000).toString()
 
     //زمان انقضا: 5 دقیقه
     const timeOut = Date.now() + 5 * 60 * 1000

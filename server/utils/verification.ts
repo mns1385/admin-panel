@@ -1,7 +1,7 @@
 export interface VerificationSession {
     username: string
     password: string
-    code: number
+    code: string
     timeOut: number
 }
 
