@@ -3,18 +3,7 @@ import { useAuthStore } from '~/stores/auth'
 const authStore = useAuthStore()
 
 const codeLength = 5
-const code = ref('')
-
-const getCode = () => {
-
-    const inputs = document.querySelectorAll(
-        'input[data-otp]'
-    ) as NodeListOf<HTMLInputElement>
-
-    code.value = Array.from(inputs)
-        .map(input => input.value)
-        .join('')
-}
+const code = ref<string[]>(['','','','',''])
 
 const nextInput = (event: Event) => {
     const input = event.target as HTMLInputElement
@@ -26,8 +15,6 @@ const nextInput = (event: Event) => {
 
         next?.focus()
     }
-
-    getCode()
 }
 
 const previousInput = (event: KeyboardEvent) => {
@@ -55,7 +42,7 @@ const verifycode = async () => {
             method: 'POST',
             body: {
                 email: authStore.emailCheck,
-                code: code.value
+                code: code.value.join('')
             }
         })
 
@@ -79,7 +66,7 @@ const verifycode = async () => {
 <template>
     <form @submit.prevent="verifycode">
         <div class="flex justify-center gap-4 my-10">
-            <input v-for="(_, index) in codeLength" :key="index"
+            <input v-for="(_, index) in codeLength" :key="index" v-model="code[index]"
             @input="nextInput"
             @keydown="previousInput"
             type="text" maxlength="1" inputmode="numeric"
