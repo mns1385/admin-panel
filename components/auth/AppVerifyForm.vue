@@ -109,10 +109,10 @@ const timer = setInterval(() => {
             type="text" maxlength="1" inputmode="numeric"
             class="w-8 h-14 text-center text-2xl rounded-lg font-bold border 
             border-lg outline-none border border-gray-400 focus:ring-2 focus:border-blue-500"
-            :class="{classBorder}">
+            :class="classBorder">
         </div>
 
-        <p class="text-gray-300 font-bold text-xl text-center" :class="{classTimer}">
+        <p class="text-gray-300 font-bold text-xl text-center" :class="classTimer">
             Time Out :
             <span>
                 {{ Math.floor(timeOut / 60) }} : {{ Math.floor(timeOut % 60) }}
