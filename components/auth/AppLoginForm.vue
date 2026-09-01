@@ -38,8 +38,7 @@ const handleLogin = async () => {
 
     isLoding.value = true
 
-    authStore.login()
-    await router.push('/')
+    
 
     isLoding.value = false
 }
