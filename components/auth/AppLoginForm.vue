@@ -2,7 +2,6 @@
 import {ref} from 'vue'
 import { useAuthStore } from '~/stores/auth'
 const authStore = useAuthStore()
-const router = useRouter()
 
 const email = ref('')
 const password = ref('')
