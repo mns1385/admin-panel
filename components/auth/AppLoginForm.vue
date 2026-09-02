@@ -15,10 +15,13 @@ const isLoding = ref(false)
 const isValidEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
- 
+
+let message = ref('')
+
 const handleLogin = async () => {
     emailError.value = ''
     passwordError.value = ''
+    message.value = ''
 
     if (!email.value) {
         emailError.value = 'Email is required'
@@ -38,7 +41,30 @@ const handleLogin = async () => {
 
     isLoding.value = true
 
-    
+    try {
+        const response = await $fetch('/api/auth/user-login', {
+            method: 'POST',
+            body: {
+                email,
+                password
+            }
+        })
+
+        message.value = response.message
+        if (response.success) {
+            authStore.login()
+            authStore.emailCheck = email.value
+            navigateTo('/')
+        }
+    } catch (error: any) {
+        if (error.statusCode === 404) {
+            message.value = error.statusMessage
+        } else if (error.statusCode === 400) {
+            emailError.value = error.statusMessage
+        } else if (error.status === 401) {
+            passwordError.value = error.statusMessage
+        }
+    }
 
     isLoding.value = false
 }
@@ -76,5 +102,9 @@ const handleLogin = async () => {
         class="w-40 text-white text-xl bg-blue-500 rounded-full p-2 hover:bg-blue-600 active:bg-blue-700">
             {{ isLoding? 'Logging in...': 'Login' }}
         </button>
+
+        <p v-if="message" class="mt-2 text-sm text-red-400">
+            {{ message }}
+        </p>
     </form>
 </template>
