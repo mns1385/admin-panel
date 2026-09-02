@@ -44,8 +44,8 @@ const handleLogin = async () => {
         const response = await $fetch('/api/auth/user-login', {
             method: 'POST',
             body: {
-                email,
-                password
+                email: email.value,
+                password: password.value
             }
         })
 
