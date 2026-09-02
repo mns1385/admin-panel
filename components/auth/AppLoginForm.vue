@@ -51,8 +51,7 @@ const handleLogin = async () => {
 
         message.value = response.message
         if (response.success) {
-            authStore.login()
-            authStore.emailCheck = email.value
+            authStore.login(response.userLogin)
             navigateTo('/')
         }
     } catch (error: any) {

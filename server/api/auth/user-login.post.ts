@@ -40,10 +40,6 @@ export default defineEventHandler(async (event) => {
     return {
         success: true,
         message: 'Login successful',
-        user: {
-            id: user.id,
-            email: user.email,
-            username: user.username
-        }
+        userLogin: user
     }
 })
