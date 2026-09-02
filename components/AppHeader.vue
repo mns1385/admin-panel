@@ -14,6 +14,8 @@
         isMenuOpen.value = false
     }
 
+    const user = ref(JSON.parse(localStorage.getItem('user')))
+    
     const sidebarStore = useSidebarStore()
     const authStore = useAuthStore()
 </script>
@@ -68,13 +70,15 @@
                 <!-- User -->
                 <div class="flex items-center gap-3">
                     <div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 font-semibold text-white">
-                        A
+                        {{ user.username.charAt(0) }}
                     </div>
                     <div class="hidden sm:block">
                         <p class="text-sm font-semibold text-gray-800">
-                            Admin
+                            {{ user.username }}
                         </p>
-                        <p class="text-xs text-gray-500">Administrator</p>
+                        <p class="text-xs text-gray-500">
+                            {{ user.email }}
+                        </p>
                     </div>
                 </div>
 
