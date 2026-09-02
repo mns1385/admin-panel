@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
 
     const users = await $fetch<{email: string, username: string, password: string, id: string}[]>('/api/users')
 
-    const user = users.find((user: any) => user === user.email)
+    const user = users.find((user: any) => email === user.email)
 
     if (!user) {
         throw createError({

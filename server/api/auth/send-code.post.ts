@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
     const timeOut = Date.now() + 5 * 60 * 1000
 
     const users = await $fetch<{email: string, username: string, password: string, id: string}[]>('/api/users', {method: 'GET'})
-    const user = users.find((user: any) => user === user.email)
+    const user = users.find((user: any) => user.email === email)
 
     if (user) {
         throw createError({
