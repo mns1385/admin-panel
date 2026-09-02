@@ -3,13 +3,13 @@ import {ref} from 'vue'
 import { useAuthStore } from '~/stores/auth'
 const authStore = useAuthStore()
 
-const email = ref('')
-const password = ref('')
+let email = ref('')
+let password = ref('')
 
-const emailError = ref('')
-const passwordError = ref('')
+let emailError = ref('')
+let passwordError = ref('')
 
-const isLoding = ref(false)
+let isLoding = ref(false)
 
 const isValidEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
@@ -59,8 +59,8 @@ const handleLogin = async () => {
         if (error.statusCode === 404) {
             message.value = error.statusMessage
         } else if (error.statusCode === 400) {
-            emailError.value = error.statusMessage
-        } else if (error.status === 401) {
+            message.value = error.statusMessage
+        } else if (error.statusCode === 401) {
             passwordError.value = error.statusMessage
         }
     }

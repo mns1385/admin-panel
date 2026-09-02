@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
     if (!user) {
         throw createError({
             statusCode: 400,
-            statusMessage: 'Email is not found'
+            statusMessage: 'User is not found'
         })
     }
 
