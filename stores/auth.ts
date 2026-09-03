@@ -2,17 +2,15 @@ import { defineStore } from 'pinia'
 
 export const useAuthStore = defineStore('auth', () => {
     const isAuthenticated = ref(false)
-    let user
 
-    const login = (userLogin: any) => {
-        user = userLogin 
+    const login = (userLogin: string) => {
         isAuthenticated.value = true
-        localStorage.setItem('isAuthenticated', 'true')
+        localStorage.setItem('userId', userLogin)
     }
 
     const logout = () => {
         isAuthenticated.value = false
-        localStorage.setItem('isAuthenticated', 'false')
+        localStorage.clear()
         window.location.reload()
     }
 
@@ -24,6 +22,12 @@ export const useAuthStore = defineStore('auth', () => {
         sendCode.value = true
     }
 
+    const user = ref({})
+    const onLoad = async () => {
+        const userId = localStorage.getItem('userId')
+        user.value = await $fetch('/api/users', {method: 'GET', query: {input: userId}})
+    }
+
     return {
         isAuthenticated,
         login,
@@ -31,6 +35,7 @@ export const useAuthStore = defineStore('auth', () => {
         emailCheck,
         sendCode,
         sendingCode,
-        user
+        user,
+        onLoad
     }
 })

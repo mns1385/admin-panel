@@ -4,6 +4,12 @@
     import { useSidebarStore } from '~/stores/sidebar'
     import { useAuthStore } from '~/stores/auth'
 
+    const user = ref({})
+    onMounted(() => {
+        authStore.onLoad()
+        user.value = authStore.user
+    })
+
     let isMenuOpen = ref(false)
     const toggleMenu = () => {
         isMenuOpen.value = !isMenuOpen.value
@@ -68,13 +74,15 @@
                 <!-- User -->
                 <div class="flex items-center gap-3">
                     <div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 font-semibold text-white">
-                        A
+                        {{ user.username.charAt(0) }}
                     </div>
                     <div class="hidden sm:block">
                         <p class="text-sm font-semibold text-gray-800">
-                            Admin
+                            {{ user.username }}
                         </p>
-                        <p class="text-xs text-gray-500">Administrator</p>
+                        <p class="text-xs text-gray-500">
+                            {{ user.email }}
+                        </p>
                     </div>
                 </div>
 

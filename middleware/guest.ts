@@ -1,8 +1,8 @@
 export default defineNuxtRouteMiddleware(() => {
     if (import.meta.client) {
-        const isAuthenticated = localStorage.getItem('isAuthenticated')
+        const userId = localStorage.getItem('userId')
 
-        if (isAuthenticated === 'true') {
+        if (userId) {
             window.location.replace('/')
             return abortNavigation()
         }

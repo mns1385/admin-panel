@@ -36,6 +36,16 @@ export default defineEventHandler(async (event) => {
     //زمان انقضا: 5 دقیقه
     const timeOut = Date.now() + 5 * 60 * 1000
 
+    const users = await $fetch<{}[]>('/api/users', { method: 'GET', query: {input: 'all'} })
+    const user = users.find((user: any) => user.username === username)
+
+    if (user) {
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'User name is used'
+        })
+    }
+
     //ذخیره اطلاعات session
     verificationStore.set(email, {
         username,
