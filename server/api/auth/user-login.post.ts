@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    const users = await $fetch<{email: string, username: string, password: string, id: string}[]>('/api/users')
+    const users = await $fetch<{email: string, username: string, password: string, id: string}[]>('/api/users', { method: 'GET', body: 'all'})
 
     const user = users.find((user: any) => email === user.email)
 
@@ -31,13 +31,13 @@ export default defineEventHandler(async (event) => {
     if (user.password !== password) {
         throw createError({
             statusCode: 401,
-            statusMessage: 'Invalid email or password'
+            statusMessage: 'Invalid password'
         })
     }
 
     return {
         success: true,
         message: 'Login successful',
-        userLogin: user
+        userLogin: user.id
     }
 })

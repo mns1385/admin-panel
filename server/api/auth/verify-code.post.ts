@@ -61,7 +61,7 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    const users = await $fetch<{email: string, username: string, password: string, id: string}[]>('/api/users', {method: 'GET'})
+    const users = await $fetch<{email: string, username: string, password: string, id: string}[]>('/api/users', {method: 'GET', body: 'all'})
     const user = users.find((user: any) => email === user.email)
     
     verificationStore.delete(email)
@@ -69,6 +69,6 @@ export default defineEventHandler(async (event) => {
     return {
         success: true,
         message: 'Account created successfully',
-        userLogin: user
+        userLogin: user?.id
     }
 })

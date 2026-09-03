@@ -14,10 +14,11 @@
         isMenuOpen.value = false
     }
 
-    const user = ref(JSON.parse(localStorage.getItem('user')))
-    
     const sidebarStore = useSidebarStore()
     const authStore = useAuthStore()
+
+    const userId = ref(localStorage.getItem('userId'))
+    const user = ref(await $fetch('/api/users', {method: 'GET', body: userId}))
 </script>
 
 <template>

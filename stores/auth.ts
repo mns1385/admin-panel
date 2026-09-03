@@ -3,16 +3,14 @@ import { defineStore } from 'pinia'
 export const useAuthStore = defineStore('auth', () => {
     const isAuthenticated = ref(false)
 
-    const login = (userLogin: any) => {
+    const login = (userLogin: string) => {
         isAuthenticated.value = true
-        localStorage.setItem('user', JSON.stringify(userLogin))
-        localStorage.setItem('isAuthenticated', 'true')
+        localStorage.setItem('userId', userLogin)
     }
 
     const logout = () => {
         isAuthenticated.value = false
-        localStorage.setItem('isAuthenticated', 'false')
-        localStorage.setItem('user', '')
+        localStorage.clear()
         window.location.reload()
     }
 
