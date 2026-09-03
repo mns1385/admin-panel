@@ -4,7 +4,7 @@ export const useProfileStore = defineStore('profile', () => {
     const user = ref<any>(null)
 
     const onLoad = async () => {
-        const userId = await localStorage.getItem('userId')
+        const userId = localStorage.getItem('userId')
 
         if (!userId) {
             throw createError({
