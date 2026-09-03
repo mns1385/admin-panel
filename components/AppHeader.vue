@@ -17,7 +17,9 @@
     const sidebarStore = useSidebarStore()
     const authStore = useAuthStore()
 
-    const user = authStore.user
+    onMounted(() => {
+        authStore.onLoad()
+    })
 </script>
 
 <template>
@@ -70,14 +72,14 @@
                 <!-- User -->
                 <div class="flex items-center gap-3">
                     <div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 font-semibold text-white">
-                        {{ user.username.charAt(0) }}
+                        {{ authStore.user.username.charAt(0) }}
                     </div>
                     <div class="hidden sm:block">
                         <p class="text-sm font-semibold text-gray-800">
-                            {{ user.username }}
+                            {{ authStore.user.username }}
                         </p>
                         <p class="text-xs text-gray-500">
-                            {{ user.email }}
+                            {{ authStore.user.email }}
                         </p>
                     </div>
                 </div>
