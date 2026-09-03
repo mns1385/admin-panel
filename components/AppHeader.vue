@@ -19,11 +19,7 @@
     const authStore = useAuthStore()
     const profileStore = useProfileStore()
 
-    const user = ref({})
-    onMounted(async () => {
-        await profileStore.onLoad()
-        user.value = profileStore.user
-    })
+    const user = profileStore.user
 </script>
 
 <template>

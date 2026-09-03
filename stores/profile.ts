@@ -1,16 +1,16 @@
 import { defineStore } from "pinia"
 
 export const useProfileStore = defineStore('auth', () => {
-    const user = ref({})
+    const user = ref()
 
-    const onLoad = async () => {
+    onMounted(async () => {
         const userId = localStorage.getItem('userId')
+        const users = await $fetch<{email: string, username: string, password: string, id: string}[]>('/api/users')
 
-        user.value = await $fetch('/api/users', {method: 'GET', query: {input: userId}})
-    }
+        user.value = users.find((user: any) => user.id === userId)
+    })
 
     return {
-        onLoad,
         user
     }
 })
