@@ -19,7 +19,7 @@
     const authStore = useAuthStore()
     const profileStore = useProfileStore()
 
-    const user = profileStore.user
+    const user = ref(profileStore.user)
 </script>
 
 <template>
