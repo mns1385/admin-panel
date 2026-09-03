@@ -13,8 +13,6 @@
         navigateTo('/profile')
         isMenuOpen.value = false
     }
-
-    const user = ref(JSON.parse(localStorage.getItem('user')))
     
     const sidebarStore = useSidebarStore()
     const authStore = useAuthStore()
