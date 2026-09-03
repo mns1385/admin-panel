@@ -1,12 +1,9 @@
 export default defineEventHandler(async (event) => {
     const query = getQuery(event)
-    
-    const users = await $fetch<{}[]>('http://localhost:3001/users')
 
     if (query.input === 'all') {
-        return users
+        return await $fetch('/localhost:3001/users')
     } else {
-        const user = users.find((user: any) => user.email === query.input)
-        return user
+        return await $fetch(`/localhost:3001/users/${query.input}`)
     }
 })

@@ -3,6 +3,7 @@
     import {ref} from 'vue'
     import { useSidebarStore } from '~/stores/sidebar'
     import { useAuthStore } from '~/stores/auth'
+    import { useProfileStore } from '~/stores/profile'
 
     let isMenuOpen = ref(false)
     const toggleMenu = () => {
@@ -16,11 +17,12 @@
 
     const sidebarStore = useSidebarStore()
     const authStore = useAuthStore()
+    const profileStore = useProfileStore()
 
-    const user = ref({email: '', username: '', password: '', id: ''})
-    onMounted(() => {
-        authStore.onLoad()
-        user.value = authStore.user
+    const user = ref({})
+    onMounted(async () => {
+        await profileStore.onLoad()
+        user.value = profileStore.user
     })
 </script>
 
