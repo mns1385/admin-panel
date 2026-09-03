@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
     import {Menu, Bell, CircleUserRound} from 'lucide-vue-next'
     import {ref} from 'vue'
     import { useSidebarStore } from '~/stores/sidebar'
@@ -38,7 +38,7 @@
                 </h1>
                 <button class="rounded-lg p-2 hover:bg-gray-100 md:hidden" 
                 @click="sidebarStore.toggle()">
-                    <Menu size="20"/>
+                    <Menu :size="20"/>
                 </button>
             </div>
 
@@ -49,7 +49,7 @@
                     <button type="button" @click="toggleMenu" 
                     class="rounded-lg p-2 text-gray-600 hover:bg-gray-100" 
                     aria-label="Open menu">
-                        <CircleUserRound size="25"/>
+                        <CircleUserRound :size="25"/>
                     </button>
 
                     <div v-if="isMenuOpen" 
@@ -70,7 +70,7 @@
                 <button type="button" 
                 class="relative rounded-full p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700" 
                 aria-label="Notification">
-                    <Bell size="20"/>
+                    <Bell :size="20"/>
                     <span class="absolute right-1 top-6 h-2 w-2 rounded-full bg-red-500"></span>
                 </button>
 
