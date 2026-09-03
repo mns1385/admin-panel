@@ -4,12 +4,6 @@
     import { useSidebarStore } from '~/stores/sidebar'
     import { useAuthStore } from '~/stores/auth'
 
-    const user = ref({})
-    onMounted(() => {
-        authStore.onLoad()
-        user.value = authStore.user
-    })
-
     let isMenuOpen = ref(false)
     const toggleMenu = () => {
         isMenuOpen.value = !isMenuOpen.value
@@ -22,6 +16,12 @@
 
     const sidebarStore = useSidebarStore()
     const authStore = useAuthStore()
+
+    const user = ref({email: '', username: '', password: '', id: ''})
+    onMounted(() => {
+        authStore.onLoad()
+        user.value = authStore.user
+    })
 </script>
 
 <template>
@@ -78,10 +78,10 @@
                     </div>
                     <div class="hidden sm:block">
                         <p class="text-sm font-semibold text-gray-800">
-                            {{ user.username }}
+                            {{ user.username}}
                         </p>
                         <p class="text-xs text-gray-500">
-                            {{ user.email }}
+                            {{ user.email}}
                         </p>
                     </div>
                 </div>

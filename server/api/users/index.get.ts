@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     if (query.input === 'all') {
         return users
     } else {
-        const user = users.find((user: any) => user.id === query.input)
+        const user = users.find((user: any) => user.email === query.input)
         return user
     }
 })

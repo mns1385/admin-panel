@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', () => {
         sendCode.value = true
     }
 
-    const user = ref()
+    const user = ref({email: '', username: '', password: '', id: ''})
     const onLoad = async () => {
         const userId = localStorage.getItem('userId')
         user.value = await $fetch('/api/users', {method: 'GET', query: {input: userId}})
