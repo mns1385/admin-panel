@@ -17,8 +17,7 @@
     const sidebarStore = useSidebarStore()
     const authStore = useAuthStore()
 
-    const userId = localStorage.getItem('userId')
-    const user = ref(await $fetch('/api/users', { method: 'GET', query: {input: userId}}))
+    const user = authStore.user
 </script>
 
 <template>

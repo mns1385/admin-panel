@@ -22,12 +22,15 @@ export const useAuthStore = defineStore('auth', () => {
         sendCode.value = true
     }
 
+    const userId = localStorage.getItem('user')
+    const user = ref($fetch('/api/users', {method: 'GET', query: {input: userId}}))
     return {
         isAuthenticated,
         login,
         logout,
         emailCheck,
         sendCode,
-        sendingCode
+        sendingCode,
+        user
     }
 })
