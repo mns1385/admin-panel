@@ -19,11 +19,10 @@
     const authStore = useAuthStore()
     const profileStore = useProfileStore()
 
-    const user = ref({email: '', username: '', password: '', id: ''})
+    const user = computed(() => profileStore.user || {email: '', username: 'Admin'})
 
-    onMounted(() => {
-        profileStore.onLoad
-        user.value = profileStore.user
+    onMounted(async () => {
+        await profileStore.onLoad()
     })
 </script>
 
@@ -77,14 +76,14 @@
                 <!-- User -->
                 <div class="flex items-center gap-3">
                     <div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 font-semibold text-white">
-                        A
+                        {{ user.username.charAt(0) }}
                     </div>
                     <div class="hidden sm:block">
                         <p class="text-sm font-semibold text-gray-800">
                             {{ user.username }}
                         </p>
                         <p class="text-xs text-gray-500">
-                            dadafsfsaef
+                            {{ user.email }}
                         </p>
                     </div>
                 </div>

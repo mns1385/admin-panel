@@ -61,8 +61,8 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    const users = await $fetch<{email: string, username: string, password: string, id: string}[]>('/api/users', {method: 'GET'})
-    const user = users.find((user: any) => email === user.email)
+    const users = await $fetch<{email: string, username: string, password: string, id: string}[]>('/api/users')
+    const user = users.find((u: any) => email === u.email)
     
     verificationStore.delete(email)
 

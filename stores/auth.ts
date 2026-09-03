@@ -5,15 +5,15 @@ export const useAuthStore = defineStore('auth', () => {
 
     const login = (userLogin: any) => {
         isAuthenticated.value = true
-        localStorage.setItem('user', JSON.stringify(userLogin))
+        localStorage.setItem('user', userLogin)
         localStorage.setItem('isAuthenticated', 'true')
     }
 
     const logout = () => {
         isAuthenticated.value = false
-        localStorage.setItem('isAuthenticated', 'false')
-        localStorage.setItem('user', '')
-        window.location.reload()
+        localStorage.removeItem('isAuthenticated')
+        localStorage.removeItem('user')
+        window.location.href = '/auth/login'
     }
 
     const emailCheck = ref('')
