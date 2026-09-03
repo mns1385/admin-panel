@@ -62,7 +62,7 @@ const verifycode = async () => {
         clearInterval(timer)
         if (response.success) {
             authStore.login(response.userLogin)
-            await navigateTo('/auth/login')
+            await navigateTo('/')
         }
     } catch (error:any) {
         if (error?.statusCode === 410) {

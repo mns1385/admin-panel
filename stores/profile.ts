@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useProfileStore = defineStore('auth', () => {
     const user = ref()
 
-    onMounted(async () => {
+    const onLoad = async () => {
         const userId = localStorage.getItem('userId')
 
         if (!userId) {
@@ -13,21 +13,17 @@ export const useProfileStore = defineStore('auth', () => {
             })
         }
 
-        try {
+    
             const response = await $fetch('/api/profile/getUser', {
                 method: 'POST',
-                body: {
-                    userId: userId
-                }
+                body: userId
             })
 
             user.value = response.user
-        } catch (error) {
-            throw error
-        }
-    })
+    }
 
     return {
-        user
+        user,
+        onLoad
     }
 })

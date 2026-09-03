@@ -52,7 +52,7 @@ const handleLogin = async () => {
         message.value = response.message
         if (response.success) {
             authStore.login(response.userLogin)
-            navigateTo('/')
+            await navigateTo('/')
         }
     } catch (error: any) {
         if (error.statusCode === 404) {

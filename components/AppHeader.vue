@@ -3,6 +3,7 @@
     import {ref} from 'vue'
     import { useSidebarStore } from '~/stores/sidebar'
     import { useAuthStore } from '~/stores/auth'
+    import { useProfileStore } from '~/stores/profile'
 
     let isMenuOpen = ref(false)
     const toggleMenu = () => {
@@ -16,6 +17,14 @@
     
     const sidebarStore = useSidebarStore()
     const authStore = useAuthStore()
+    const profileStore = useProfileStore()
+
+    const user = ref({email: '', username: '', password: '', id: ''})
+
+    onMounted(() => {
+        profileStore.onLoad
+        user.value = profileStore.user
+    })
 </script>
 
 <template>
@@ -68,14 +77,14 @@
                 <!-- User -->
                 <div class="flex items-center gap-3">
                     <div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 font-semibold text-white">
-                        {{ user.username.charAt(0) }}
+                        A
                     </div>
                     <div class="hidden sm:block">
                         <p class="text-sm font-semibold text-gray-800">
                             {{ user.username }}
                         </p>
                         <p class="text-xs text-gray-500">
-                            {{ user.email }}
+                            dadafsfsaef
                         </p>
                     </div>
                 </div>
