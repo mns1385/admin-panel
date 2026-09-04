@@ -1,8 +1,0 @@
-export default defineEventHandler(async (event) => {
-    const body = await readBody(event)
-
-    await $fetch('http://localhost:3001/users', {
-        method: 'POST',
-        body
-    })
-})
