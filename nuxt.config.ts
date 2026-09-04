@@ -9,6 +9,7 @@ export default defineNuxtConfig({
   ],
 
   css: [
-    '~/assets/css/background.css'
+    '~/assets/css/background.css',
+    '~/assets/css/main.css'
   ]
 })
