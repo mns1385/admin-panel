@@ -20,7 +20,8 @@
     "resend": "^6.25.0",
     "vue": "^3.5.40",
     "vue-chartjs": "^5.3.4",
-    "vue-router": "^5.2.0"
+    "vue-router": "^5.2.0",
+    "vue3-toastify": "^0.2.9"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.14.0",
