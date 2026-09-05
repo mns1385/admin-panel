@@ -4,11 +4,11 @@
     const authStore = useAuthStore()
 
     const email = ref('')
-    const username = ref('')
+    const name = ref('')
     const password = ref('')
     
     const emailError = ref('')
-    const usernameError = ref('')
+    const nameError = ref('')
     const passwordError = ref('')
 
     const isValidEmail = (email: string) => {
@@ -21,7 +21,7 @@
     const sendCode = async () => {
         emailError.value = ''
         passwordError.value = ''
-        usernameError.value = ''
+        nameError.value = ''
 
         if (!email.value) {
             emailError.value = 'Email is required'
@@ -29,8 +29,8 @@
             emailError.value = 'Please enter a valid email'
         }
 
-        if (!username.value) {
-            usernameError.value = 'User name is required'
+        if (!name.value) {
+            nameError.value = 'User name is required'
         }
 
         if (!password.value) {
@@ -39,7 +39,7 @@
             passwordError.value = 'Password must be at least 8 characters'
         }
 
-        if (passwordError.value || emailError.value || usernameError.value) {
+        if (passwordError.value || emailError.value || nameError.value) {
             return
         }
 
@@ -50,7 +50,7 @@
                 method: 'POST',
                 body: {
                     email: email.value,
-                    username: username.value,
+                    name: name.value,
                     password: password.value
                 }
             })
@@ -90,10 +90,10 @@
                 UserName :
             </label>
             <input type="text" name="username" id="username" placeholder="Enter your username"
-            v-model="username"
+            v-model="name"
             class="block rounded-lg w-full text-xl px-4 py-1 ">
-            <p v-if="usernameError" class="mt-2 text-sm text-red-400">
-                {{ usernameError }}
+            <p v-if="nameError" class="mt-2 text-sm text-red-400">
+                {{ nameError }}
             </p>
         </div>
 

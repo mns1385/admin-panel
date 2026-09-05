@@ -45,8 +45,8 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    const baseUrl = 'http://localhost/users'
-    const dateCreate = Date.now()
+    const baseUrl = 'http://localhost:3001/users'
+    const dateCreate = new Date()
 
     try {
         const newUser = await $fetch<{id: string}>(baseUrl, {

@@ -35,7 +35,7 @@ export const useApi = () => {
         }
     }
 
-    const createUser = async (user: {email: string, name: string, password: string, role: string}) => {
+    const createUser = async (user: {email: string, name: string, password: string, role: string, dateCreated: Date, dateLogin: Date}) => {
 
         if (!user) {
             throw createError({
@@ -59,7 +59,7 @@ export const useApi = () => {
         }
     }
 
-    const updateUser = async (id: string, user: {email: string, name: string, password: string, role: string}) => {
+    const updateUser = async (id: string, user: {email: string, name: string, password: string, role: string, dateCreated: Date, dateLogin: Date}) => {
         if (!id) {
             throw createError({
                 statusCode: 400,

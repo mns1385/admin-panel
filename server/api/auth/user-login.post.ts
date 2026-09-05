@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
     const baseUrl = 'http://localhost:3001/users'
     
     try {
-        const users = await $fetch<{email: String, name: string, password: string, role: string, dateCreate: number, dateLogin: number, id: string}[]>(baseUrl)
+        const users = await $fetch<{email: String, name: string, password: string, role: string, dateCreate: Date, dateLogin: Date, id: string}[]>(baseUrl)
     
         const user = users.find((u: any) => u.email === email)
 
@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
             })
         }
 
-        const dateLogin = Date.now()
+        const dateLogin = new Date()
 
         user.dateLogin = dateLogin
 

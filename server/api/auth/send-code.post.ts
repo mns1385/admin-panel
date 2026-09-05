@@ -36,10 +36,13 @@ export default defineEventHandler(async (event) => {
     //زمان انقضا: 5 دقیقه
     const timeOut = Date.now() + 5 * 60 * 1000
 
-    const baseUrl = 'http://localhost/users'
+    const baseUrl = 'http://localhost:3001/users'
 
     try {
-        const users = await $fetch<{email: string}[]>(baseUrl)
+        const users = await $fetch<any>(baseUrl, {
+            method: 'GET'
+        })
+
         const user = users.find((u: any) => u.email === email)
 
         if (user) {
