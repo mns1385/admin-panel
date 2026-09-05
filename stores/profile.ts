@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { useApi } from "~/composables/useApi";
 
 export const useProfileStore = defineStore('profile', () => {
     const user = ref<any>(null)
@@ -13,13 +14,12 @@ export const useProfileStore = defineStore('profile', () => {
             })
         }
 
-        try {
-            const response = await $fetch('/api/profile/getUser', {
-                method: 'POST',
-                body: {userId}
-            })
+        const data = useApi()
 
-            user.value = response.user
+        try {
+            const userLoad = await data.getUser(userId)
+
+            user.value = userLoad
         } catch (error) {
             console.error('Faild to fetch user profile:', error)
             localStorage.removeItem('userId')
@@ -27,13 +27,8 @@ export const useProfileStore = defineStore('profile', () => {
         }
     }
 
-     const clearUser = () => {
-        user.value
-    }
-
     return {
         user,
-        onLoad,
-        clearUser
+        onLoad
     }
 })
