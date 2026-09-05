@@ -1,6 +1,8 @@
 import { randomInt } from 'node:crypto'
 import { verificationStore } from '~/server/utils/verification'
 import { sendVerificationCode } from '~/server/utils/mail'
+import { useApi } from '~/composables/useApi'
+const data = useApi()
 
 export default defineEventHandler(async (event) => {
 
@@ -36,8 +38,7 @@ export default defineEventHandler(async (event) => {
     //زمان انقضا: 5 دقیقه
     const timeOut = Date.now() + 5 * 60 * 1000
 
-    const users = await $fetch<{email: string, username: string, password: string, id: string}[]>('/api/users', {method: 'GET'})
-    const user = users.find((user: any) => user.email === email)
+    
 
     if (user) {
         throw createError({

@@ -17,27 +17,45 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    const users = await $fetch<{email: string, username: string, password: string, id: string}[]>('/api/users')
+    const baseUrl = 'http://localhost:3001/users'
+    
+    try {
+        const users = await $fetch<{email: String, name: string, password: string, role: string, dateCreate: number, dateLogin: number, id: string}[]>(baseUrl)
+    
+        const user = users.find((u: any) => u.email === email)
 
-    const user = users.find((u: any) => email === u.email)
+        if (!user) {
+            throw createError({
+                statusCode: 401,
+                statusMessage: 'User is not exist!'
+            })
+        }
 
-    if (!user) {
-        throw createError({
-            statusCode: 400,
-            statusMessage: 'User is not found'
+        if (user.password !== password) {
+            throw createError({
+                statusCode: 500,
+                statusMessage: 'Password is invalid'
+            })
+        }
+
+        const dateLogin = Date.now()
+
+        user.dateLogin = dateLogin
+
+        await $fetch(`${baseUrl}/${user.id}`, {
+            method: 'PUT',
+            body: user
         })
-    }
 
-    if (user.password !== password) {
+        return {
+            success: true,
+            userLogin: user.id
+        }
+
+    } catch (error: any) {
         throw createError({
-            statusCode: 401,
-            statusMessage: 'Invalid email or password'
+            statusCode: 500,
+            statusMessage: error.message || 'Failed to login'
         })
-    }
-
-    return {
-        success: true,
-        message: 'Login successful',
-        userLogin: user.id
     }
 })
