@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    const verification =verificationStore.get(email)
+    const verification = verificationStore.get(email)
 
     if (!verification) {
         throw createError({
@@ -45,30 +45,32 @@ export default defineEventHandler(async (event) => {
         })
     }
 
+    const baseUrl = 'http://localhost/users'
+    const dateCreate = Date.now()
+
     try {
-        await $fetch('/api/users', {
+        const newUser = await $fetch<{id: string}>(baseUrl, {
             method: 'POST',
             body: {
                 email: email,
-                username: verification.username,
-                password: verification.password
+                name: verification.name,
+                password: verification.password,
+                role: 'user',
+                dateCreate: dateCreate,
+                dateLogin: dateCreate
             }
         })
+
+        return {
+            success: true,
+            message: 'Account created!',
+            userLogin: newUser.id
+        }
+
     } catch (error) {
         throw createError({
             statusCode: 400,
             statusMessage: 'Account dont created'
         })
-    }
-
-    const users = await $fetch<{email: string, username: string, password: string, id: string}[]>('/api/users')
-    const user = users.find((u: any) => email === u.email)
-    
-    verificationStore.delete(email)
-
-    return {
-        success: true,
-        message: 'Account created successfully',
-        userLogin: user.id
     }
 })
