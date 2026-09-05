@@ -1,14 +1,12 @@
 import { randomInt } from 'node:crypto'
 import { verificationStore } from '~/server/utils/verification'
 import { sendVerificationCode } from '~/server/utils/mail'
-import { useApi } from '~/composables/useApi'
-const data = useApi()
 
 export default defineEventHandler(async (event) => {
 
     //دریافت ایمیل
     const body = await readBody(event)
-    const{ email, username, password } = body
+    const{ email, name, password } = body
 
     //برسی ایمیل
     if (!email) {
@@ -18,7 +16,7 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    if (!username) {
+    if (!name) {
         throw createError ({
             statusCode: 400,
             statusMessage: 'User name is required'
@@ -38,33 +36,43 @@ export default defineEventHandler(async (event) => {
     //زمان انقضا: 5 دقیقه
     const timeOut = Date.now() + 5 * 60 * 1000
 
-    
-
-    if (user) {
-        throw createError({
-            statusCode: 400,
-            statusMessage: 'Email is repetitive'
-        })
-    }
-
-    //ذخیره اطلاعات session
-    verificationStore.set(email, {
-        username,
-        password,
-        code,
-        timeOut
-    })
+    const baseUrl = 'http://localhost/users'
 
     try {
-        await sendVerificationCode(email, code)
-    } catch (error) {
+        const users = await $fetch<{email: string}[]>(baseUrl)
+        const user = users.find((u: any) => u.email === email)
+
+        if (user) {
+            throw createError({
+                statusCode: 400,
+                statusMessage: 'Email is repetitive!'
+            })
+        }
+
+        //ذخیره اطلاعات session
+        verificationStore.set(email, {
+            name,
+            password,
+            code,
+            timeOut
+        })
+
+        try {
+            await sendVerificationCode(email, code)
+        } catch (error) {
+            throw createError({
+                statusCode: 500,
+                statusMessage: 'Failed to send verification email'
+            })
+        }
+
+        return {
+            success: true
+        }
+    } catch (error: any) {
         throw createError({
             statusCode: 500,
-            statusMessage: 'Failed to send verification email'
+            statusMessage: error.message || 'Failed to get data!'
         })
-    }
-
-    return {
-        success: true
     }
 })
