@@ -112,7 +112,7 @@ const timer = setInterval(() => {
             @keydown="previousInput"
             type="text" maxlength="1" inputmode="numeric"
             class="w-8 h-14 text-center text-2xl rounded-lg font-bold border 
-            border-lg outline-none border border-gray-400 focus:ring-2 focus:border-blue-500"
+            border-lg outline-none border-gray-400 focus:ring-2 focus:border-blue-500"
             :class="classBorder">
         </div>
 

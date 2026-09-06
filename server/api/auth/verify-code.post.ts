@@ -49,13 +49,20 @@ export default defineEventHandler(async (event) => {
     const dateCreate = new Date()
 
     try {
+        const users = await $fetch<[]>(baseUrl, {
+            method: 'GET'
+        })
+
+        const isFirstUser = users.length === 0
+        const role = isFirstUser? 'admin': 'user'
+
         const newUser = await $fetch<{id: string}>(baseUrl, {
             method: 'POST',
             body: {
                 email: email,
                 name: verification.name,
                 password: verification.password,
-                role: 'user',
+                role: role,
                 dateCreate: dateCreate,
                 dateLogin: dateCreate
             }
