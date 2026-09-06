@@ -47,7 +47,7 @@ export default defineEventHandler(async (event) => {
 
         if (user) {
             throw createError({
-                statusCode: 400,
+                statusCode: 409,
                 statusMessage: 'Email is repetitive!'
             })
         }
@@ -72,10 +72,10 @@ export default defineEventHandler(async (event) => {
         return {
             success: true
         }
-    } catch (error: any) {
+    } catch (outerError: any) {
         throw createError({
-            statusCode: 500,
-            statusMessage: error.message || 'Failed to get data!'
+            statusCode: outerError.statusCode || 500,
+            statusMessage: outerError.message || 'Failed to get data!'
         })
     }
 })

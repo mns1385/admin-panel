@@ -55,12 +55,14 @@ const handleLogin = async () => {
             await navigateTo('/')
         }
     } catch (error: any) {
-        if (error.statusCode === 404) {
+        if (error.statusCode === 400) {
             message.value = error.statusMessage
-        } else if (error.statusCode === 400) {
+        } else if (error.statusCode === 404) {
             message.value = error.statusMessage
         } else if (error.statusCode === 401) {
             passwordError.value = error.statusMessage
+        } else if (error.statusCode === 500) {
+            message.value = error.statusMessage
         }
     }
 

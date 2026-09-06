@@ -5,14 +5,14 @@ export default defineEventHandler(async (event) => {
 
     if (!email) {
         throw createError({
-            statusCode: 404,
+            statusCode: 400,
             statusMessage: 'Email is required'
         })
     }
 
     if (!password) {
         throw createError({
-            statusCode: 404,
+            statusCode: 400,
             statusMessage: 'Password is required'
         })
     }
@@ -26,14 +26,14 @@ export default defineEventHandler(async (event) => {
 
         if (!user) {
             throw createError({
-                statusCode: 401,
+                statusCode: 404,
                 statusMessage: 'User is not exist!'
             })
         }
 
         if (user.password !== password) {
             throw createError({
-                statusCode: 500,
+                statusCode: 401,
                 statusMessage: 'Password is invalid'
             })
         }
@@ -49,13 +49,14 @@ export default defineEventHandler(async (event) => {
 
         return {
             success: true,
+            message: 'Login is successfuly',
             userLogin: user.id
         }
 
-    } catch (error: any) {
+    } catch (outerError: any) {
         throw createError({
-            statusCode: 500,
-            statusMessage: error.message || 'Failed to login'
+            statusCode: outerError.statusCode || 500,
+            statusMessage: outerError.message || 'Internall server error!'
         })
     }
 })

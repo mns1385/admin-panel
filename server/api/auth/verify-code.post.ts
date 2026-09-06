@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
 
     if (!verification) {
         throw createError({
-            statusCode: 400,
+            statusCode: 404,
             statusMessage: 'Verification not found'
         })
     }
@@ -40,7 +40,7 @@ export default defineEventHandler(async (event) => {
 
     if (code !== verification.code) {
         throw createError({
-            statusCode: 500,
+            statusCode: 401,
             statusMessage: 'Invalid verification code'
         })
     }
@@ -69,8 +69,8 @@ export default defineEventHandler(async (event) => {
 
     } catch (error) {
         throw createError({
-            statusCode: 400,
-            statusMessage: 'Account dont created'
+            statusCode: 500,
+            statusMessage: 'Intervel server Error!'
         })
     }
 })

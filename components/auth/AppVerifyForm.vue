@@ -65,19 +65,23 @@ const verifycode = async () => {
             await navigateTo('/')
         }
     } catch (error:any) {
-        if (error?.statusCode === 410) {
+        if (error.statusCode === 410) {
 
             message.value = error.statusMessage
             authStore.sendCode = false
 
-        } else if (error?.statusCode === 400) {
+        } else if (error.statusCode === 400) {
 
             message.value = error.statusMessage
-        } else if (error?.statusCode === 500) {
+        } else if (error.statusCode === 401) {
 
             message.value = error.statusMessage
             classBorder.value = 'border-red-400 ring-2'
             code.value = ['','','','','']
+        } else if (error.statusCode === 404) {
+
+            message.value === error.statusMessage
+            authStore.sendCode = false
         }
     }
 

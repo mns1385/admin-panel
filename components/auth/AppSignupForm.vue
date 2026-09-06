@@ -64,6 +64,8 @@
                 message.value = error.statusMessage
             } else if (error.statusCode === 500) {
                 message.value = error.statusMessage
+            } else if (error.statusCode === 409) {
+                message.value = error.statusMessage
             }
         }
 
