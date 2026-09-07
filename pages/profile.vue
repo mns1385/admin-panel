@@ -12,8 +12,8 @@ const profileStore = useProfileStore()
 const user = computed(() => profileStore.user || {email: '', name: ''})
 
 const tabs = ref([
-    {label: 'User information', component: '~/components/profile/info.vue', icon: User},
-    {label: 'Edit information', component: '~/components/profile/edit,.vue', icon: Edit},
+    {label: 'Information', component: '~/components/profile/info.vue', icon: User},
+    {label: 'Edit', component: '~/components/profile/edit,.vue', icon: Edit},
     {label: 'security', component: '~/components/profile/security.vue', icon: Shield}
 ])
 
@@ -71,10 +71,10 @@ const isOpenMenu = ref(false)
                             </button>
 
                             <div v-if="isOpenMenu" 
-                            class="absolute right-0 top-full mt-2 min-w-36 rounded-lg border border-gray-200 bg-white p-2 shadow-lg">
+                            class="absolute max-w-36 right-0 top-full mt-2 rounded-lg border border-gray-200 bg-white p-2 shadow-lg">
                                 
                                 <button v-for="tab in tabs" :key="tab.component" @click="switchTabs(tab.component)"
-                                :class="['flex flex-1 items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium text-sm transition-all',
+                                :class="['flex flex-1 mb-1 w-full gap-2 px-4 py-2.5 rounded-lg font-medium text-sm transition-all',
                                 activeTab === tab.component? 'bg-white text-blue-600 shadow-md': 'text-gray-600 hover:text-gray-800 hover:bg-gray-50']">
                                     <component :is="tab.icon" class="w-4 h-4"/>
                                     <span>
