@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {Menu, Bell, CircleUserRound} from 'lucide-vue-next'
+    import {Menu, X, Bell, CircleUserRound} from 'lucide-vue-next'
     import {ref} from 'vue'
     import { useSidebarStore } from '~/stores/sidebar'
     import { useAuthStore } from '~/stores/auth'
@@ -37,7 +37,7 @@
                 </h1>
                 <button class="rounded-lg p-2 hover:bg-gray-100 md:hidden" 
                 @click="sidebarStore.toggle()">
-                    <Menu :size="20"/>
+                    <component :is="sidebarStore.isOpen? X: Menu"/>
                 </button>
             </div>
 

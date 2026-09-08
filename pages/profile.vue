@@ -13,13 +13,14 @@ const user = computed(() => profileStore.user || {email: '', name: ''})
 
 const tabs = ref([
     {label: 'Information', component: '~/components/profile/info.vue', icon: User},
-    {label: 'Edit', component: '~/components/profile/edit,.vue', icon: Edit},
+    {label: 'Edit', component: '~/components/profile/edit.vue', icon: Edit},
     {label: 'security', component: '~/components/profile/security.vue', icon: Shield}
 ])
 
 const activeTab = ref(tabs.value[0].component)
 
 const switchTabs = (component: string) => {
+    isOpenMenu.value = false
     activeTab.value = component
 }
 

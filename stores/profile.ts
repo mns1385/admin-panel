@@ -21,8 +21,12 @@ export const useProfileStore = defineStore('profile', () => {
 
             user.value = userLoad
         } catch (error) {
-            console.error('Faild to fetch user profile:', error)
-            localStorage.removeItem('userId')
+            throw createError({
+                statusCode: 500,
+                statusMessage: 'Server user Error'
+            }),
+
+            localStorage.removeItem('userId'),
             localStorage.removeItem('isAuthenticated')
         }
     }
