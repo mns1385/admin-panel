@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useProfileStore } from '~/stores/profile';
 import { Mail, User, Shield, IdCard } from 'lucide-vue-next'
-import { P } from 'vue-router/dist/index-BN0B0y8a.js';
 
 const profileStore = useProfileStore()
 

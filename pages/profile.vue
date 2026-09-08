@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { User, Edit, Shield, Menu, X} from 'lucide-vue-next'
 import { useProfileStore } from '~/stores/profile';
+import AppInfo  from '~/components/profile/AppInfo.vue'
 
 definePageMeta({
     layout: 'default',
@@ -12,14 +13,14 @@ const profileStore = useProfileStore()
 const user = computed(() => profileStore.user || {email: '', name: ''})
 
 const tabs = ref([
-    {label: 'Information', component: '~/components/profile/info.vue', icon: User},
-    {label: 'Edit', component: '~/components/profile/edit.vue', icon: Edit},
-    {label: 'security', component: '~/components/profile/security.vue', icon: Shield}
+    {label: 'Information', component: AppInfo, icon: User},
+    {label: 'Edit', component: '', icon: Edit},
+    {label: 'security', component: '', icon: Shield}
 ])
 
 const activeTab = ref(tabs.value[0].component)
 
-const switchTabs = (component: string) => {
+const switchTabs = (component: any) => {
     isOpenMenu.value = false
     activeTab.value = component
 }
@@ -74,7 +75,7 @@ const isOpenMenu = ref(false)
                             <div v-if="isOpenMenu" 
                             class="absolute max-w-36 right-0 top-full mt-2 rounded-lg border border-gray-200 bg-white p-2 shadow-lg">
                                 
-                                <button v-for="tab in tabs" :key="tab.component" @click="switchTabs(tab.component)"
+                                <button v-for="tab in tabs" @click="switchTabs(tab.component)"
                                 :class="['flex flex-1 mb-1 w-full gap-2 px-4 py-2.5 rounded-lg font-medium text-sm transition-all',
                                 activeTab === tab.component? 'bg-white text-blue-600 shadow-md': 'text-gray-600 hover:text-gray-800 hover:bg-gray-50']">
                                     <component :is="tab.icon" class="w-4 h-4"/>
@@ -89,7 +90,7 @@ const isOpenMenu = ref(false)
 
                     <!--switch bitween tabs-->
                     <div class="hidden md:flex gap-2 bg-gray-100 p-1 rounded-xl whitespace-nowrap">
-                        <button v-for="tab in tabs" :key="tab.component" @click="switchTabs(tab.component)"
+                        <button v-for="tab in tabs" @click="switchTabs(tab.component)"
                         :class="['flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium text-sm transition-all',
                         activeTab === tab.component? 'bg-white text-blue-600 shadow-md': 'text-gray-600 hover:text-gray-800 hover:bg-gray-50']">
                             <component :is="tab.icon" class="w-4 h-4"/>
@@ -106,7 +107,7 @@ const isOpenMenu = ref(false)
 
         <!--Components-->
         <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 md:p-8 transition-all">
-            <component/>
+            <component :is="activeTab"/>
         </div>
 
     </div>
