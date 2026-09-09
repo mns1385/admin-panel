@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { User, Edit, Shield, Menu, X} from 'lucide-vue-next'
-import { useProfileStore } from '~/stores/profile';
+import { useProfileStore } from '~/stores/profile'
 import AppInfo  from '~/components/profile/AppInfo.vue'
+import AppEdite from '~/components/profile/AppEdite.vue'
 
 definePageMeta({
     layout: 'default',
@@ -14,7 +15,7 @@ const user = computed(() => profileStore.user || {email: '', name: ''})
 
 const tabs = ref([
     {label: 'Information', component: AppInfo, icon: User},
-    {label: 'Edit', component: '', icon: Edit},
+    {label: 'Edit', component: AppEdite, icon: Edit},
     {label: 'security', component: '', icon: Shield}
 ])
 
