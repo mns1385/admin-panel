@@ -27,7 +27,7 @@
 </script>
 
 <template>
-    <header class="h-16 border-b border-gray-300 bg-white px-6">
+    <header class="h-16 border-b border-gray-300 bg-gradient-to-r from-blue-200 to-white px-6">
         <div class="flex h-full items-center justify-between">
 
             <!-- title page -->
@@ -75,7 +75,7 @@
 
                 <!-- User -->
                 <div class="flex items-center gap-3">
-                    <div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 font-semibold text-white">
+                    <div class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-purple-600 font-semibold text-white">
                         {{ user.name.charAt(0) }}
                     </div>
                     <div class="hidden sm:block">
