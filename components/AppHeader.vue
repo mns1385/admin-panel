@@ -27,7 +27,7 @@
 </script>
 
 <template>
-    <header class="h-16 border-b border-gray-300 bg-gradient-to-r from-blue-200 to-white px-6">
+    <header class="h-16 border-b border-gray-200 bg-gradient-to-b from-blue-200 to-white px-6">
         <div class="flex h-full items-center justify-between">
 
             <!-- title page -->
