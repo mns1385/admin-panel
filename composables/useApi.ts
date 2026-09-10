@@ -75,16 +75,15 @@ export const useApi = () => {
         }
 
         try {
-            const data = await $fetch(`${baseUrl}/users/${id}`, {
+            await $fetch(`${baseUrl}/users/${id}`, {
                 method: 'PUT',
                 body: user
             })
 
-            return data
         } catch (error) {
             throw createError({
                 statusCode: 404,
-                statusMessage: 'Error in update user!'
+                statusMessage: 'Error in update user server!'
             })
         }
     }
