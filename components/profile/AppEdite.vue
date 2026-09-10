@@ -108,5 +108,11 @@ const nameUpdate = () => {
                 </button>
             </form>
         </div>
+
+        <!--=== Change Email Section ===-->
+        <div>
+            
+            <!---->
+        </div>
     </div>
 </template>
