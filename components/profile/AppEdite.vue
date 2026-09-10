@@ -21,6 +21,11 @@ const nameUpdate = () => {
     nameError.value = ''
     nameLoading.value = false
 
+    if (!fullName.value) {
+        nameError.value = 'Name is required!'
+        return
+    }
+
     user.value.name = fullName
 
     nameLoading.value = true
