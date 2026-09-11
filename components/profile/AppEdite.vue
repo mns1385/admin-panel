@@ -18,7 +18,7 @@ const emailError = ref('')
 
 const fullName = ref(user.value.name)
 
-const nameUpdate = () => {
+const nameUpdate = async () => {
     nameSuccess.value = ''
     nameError.value = ''
     nameLoading.value = false
@@ -33,7 +33,7 @@ const nameUpdate = () => {
     nameLoading.value = true
 
     try {
-        data.updateUser(user.value.id, user.value)
+        await data.updateUser(user.value.id, user.value)
         profileStore.onLoad()
 
         nameSuccess.value = 'User updated!'
@@ -181,20 +181,38 @@ const verifyEmail = async () => {
 const idSuccess = ref('')
 const idError = ref('')
 const isUpdateId = ref(false)
-const userId = ref(user.value.id)
+const newId = ref(user.value.id)
 
-const updateId = () => {
+const updateId = async () => {
     idError.value = ''
     idSuccess.value = ''
     isUpdateId.value = false
 
-    if (!userId) {
+    if (!newId) {
         idError.value = 'User ID is required!'
     }
 
+    isUpdateId.value = true
+
     try {
-        
+        const responce = await $fetch('/api/update-userId/updateId', {
+            method: 'POST',
+            body: {
+                userId: user.value.id,
+                newId: newId.value
+            }
+        })
+
+        if (responce.success) {
+            idSuccess.value = responce.statusMessage
+            localStorage.setItem('userId', newId.value)
+            profileStore.onLoad()
+        }
+    } catch(error: any) {
+        idError.value = error.statusMessage
     }
+
+    isUpdateId.value = false
 }
 </script>
 
@@ -417,7 +435,7 @@ const updateId = () => {
                     <label class="block text-sm font-medium text-gray-700 mb-2">
                         Your ID
                     </label>
-                    <input v-model="userId" type="text" placeholder="Enter your full name" :disabled="isUpdateId"
+                    <input v-model="newId" type="text" placeholder="Enter your full name" :disabled="isUpdateId"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-orange-500 focus:border-transparent outline-none transition-all">
                 </div>
 
