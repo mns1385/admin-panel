@@ -188,8 +188,9 @@ const updateId = async () => {
     idSuccess.value = ''
     isUpdateId.value = false
 
-    if (!newId) {
+    if (!newId.value) {
         idError.value = 'User ID is required!'
+        return
     }
 
     isUpdateId.value = true
@@ -204,7 +205,7 @@ const updateId = async () => {
         })
 
         if (responce.success) {
-            idSuccess.value = responce.statusMessage
+            idSuccess.value = responce.message
             localStorage.setItem('userId', newId.value)
             profileStore.onLoad()
         }
