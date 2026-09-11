@@ -147,12 +147,12 @@ const verifyEmail = async () => {
         if (responce.success) {
             verifySuccess.value = responce.message
             profileStore.onLoad()
-            timeOut.value = 300
 
             setTimeout(() => {
                 isEditeEmail.value = false
                 verifyCode.value = ''
                 stepChangeEmail.value = 1
+                timeOut.value = 300
             }, 2000)
         }
     } catch (error: any) {
