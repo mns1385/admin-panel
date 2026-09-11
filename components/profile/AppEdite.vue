@@ -34,6 +34,7 @@ const nameUpdate = () => {
 
     try {
         data.updateUser(user.value.id, user.value)
+        profileStore.onLoad()
 
         nameSuccess.value = 'User updated!'
     } catch (error: any) {
@@ -102,17 +103,18 @@ const backForm = () => {
     stepChangeEmail.value = 1
     emailError.value = ''
     emailSuccess.value = ''
+    timeOut.value = 300
 }
 
 const verifySuccess = ref('')
 const verifyError = ref('')
-const timeOut = ref(120)
+const timeOut = ref(300)
 
 const timer = setInterval(() => {
     timeOut.value--
     if (timeOut.value === 0) {
         stepChangeEmail.value = 1
-        timeOut.value = 120
+        timeOut.value = 300
         verifyCode.value = '12345'
         verifyEmail()
         timer.close()
@@ -144,6 +146,8 @@ const verifyEmail = async () => {
 
         if (responce.success) {
             verifySuccess.value = responce.message
+            profileStore.onLoad()
+            timeOut.value = 300
 
             setTimeout(() => {
                 isEditeEmail.value = false
@@ -158,7 +162,7 @@ const verifyEmail = async () => {
             verifyError.value = error.statusMessage
             stepChangeEmail.value = 1
         } else if (error.statusCode === 409) {
-            emailError.value = error.statusCode
+            emailError.value = error.statusMessage
             verifyCode.value = ''
         } else if (error.statusCode === 404) {
             verifyError.value = error.statusMessage
@@ -329,12 +333,18 @@ const verifyEmail = async () => {
                     <p class="text-sm text-gray-600">
                         We sent a 5-digit code to <strong class="text-purple-700">{{ newEmail }}</strong>
                     </p>
-                    <input v-model="verifyCode" type="text" maxlength="5" placeholder="code" :disabled="isVerifyCode">
+                    <div class="flex gap-5">
+                        <input v-model="verifyCode" type="text" maxlength="5" placeholder="code" :disabled="isVerifyCode"
+                        class="w-auto px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none">
+                    
+                        <div class="flex gap-2 py-2.5 px-4 font-medium text-xl">
+                            {{ Math.floor(timeOut / 60) }} : {{ Math.floor(timeOut % 60) }}
+                        </div>
+                    </div>
 
                     <div class="flex justify-between gap-3">
                         <button @click="backForm" :disabled="isVerifyCode" type="button"
                         class="flex gap-2 py-2.5 px-4 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-lg">
-                            <Backpack class="w-4 h-4 text-gray-700"/>
                             <span>
                                 Back
                             </span>
