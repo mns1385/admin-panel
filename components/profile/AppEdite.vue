@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useProfileStore } from '~/stores/profile'
-import { User, Mail, Save, Loader2, CheckCircle2, XCircle, Verified, IdCard, Send} from 'lucide-vue-next'
+import { User, Mail, Save, Loader2, CheckCircle2, XCircle, Verified, Send} from 'lucide-vue-next'
 import { useApi } from '~/composables/useApi'
 
 const profileStore = useProfileStore()
@@ -174,46 +174,6 @@ const verifyEmail = async () => {
     }
 
     isVerifyCode.value = false
-}
-
-
-/*Change User Id*/
-const idSuccess = ref('')
-const idError = ref('')
-const isUpdateId = ref(false)
-const newId = ref(user.value.id)
-
-const updateId = async () => {
-    idError.value = ''
-    idSuccess.value = ''
-    isUpdateId.value = false
-
-    if (!newId.value) {
-        idError.value = 'User ID is required!'
-        return
-    }
-
-    isUpdateId.value = true
-
-    try {
-        const responce = await $fetch('/api/update-userId/updateId', {
-            method: 'POST',
-            body: {
-                userId: user.value.id,
-                newId: newId.value
-            }
-        })
-
-        if (responce.success) {
-            idSuccess.value = responce.message
-            localStorage.setItem('userId', newId.value)
-            profileStore.onLoad()
-        }
-    } catch(error: any) {
-        idError.value = error.statusMessage
-    }
-
-    isUpdateId.value = false
 }
 </script>
 
@@ -401,56 +361,5 @@ const updateId = async () => {
                 </div>
             </div>
         </div>
-
-
-        <!--===Change User Id-->
-        <div class="bg-gradient-to-br from-orange-100 to-white rounded-xl p-6 border border-orange-100">
-            <div class="flex items-center gap-2 mb-4">
-                <IdCard class="w-5 h-5 text-orange-600"/>
-                <h4 class="text-base font-semibold text-gray-800">
-                    Change User ID
-                </h4>
-            </div>
-
-            <!--Success Message-->
-            <div v-if="idSuccess"
-            class="flex items-center gap-3 p-3 bg-green-50 border border-green-200 rounded-lg mb-4">
-                <CheckCircle2 class="w-4 h-4 text-green-600 flex-shrink-0"/>
-                <p class="text-sm font-medium text-green-800">
-                    {{ idSuccess }}
-                </p>
-            </div>
-
-            <!--Error Message-->
-            <div v-if="idError"
-            class="flex items-center gap-3 p-3 bg-red-50 border border-red-200 rounded-lg mb-4">
-                <XCircle class="w-4 h-4 text-red-600 flex-shrink-0"/>
-                <p class="text-sm font-medium text-red-800">
-                    {{ idError }}
-                </p>
-            </div>
-
-            <!--Name Form-->
-            <form @submit.prevent="updateId" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Your ID
-                    </label>
-                    <input v-model="newId" type="text" placeholder="Enter your full name" :disabled="isUpdateId"
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-orange-500 focus:border-transparent outline-none transition-all">
-                </div>
-
-                <button type="submit" :disabled="isUpdateId"
-                class="w-full md:w-auto px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-lg transition-all hover:shadow-md flex items-center justify-center gap-2 disabled:cursor-not-allowed">
-                    <Loader2 v-if="isUpdateId" class="w-4 h-4 animate-spin"/>
-                    <Save v-else class="w-4 h-4"/>
-                    <span>
-                        {{ isUpdateId? 'Saving': 'Update ID' }}
-                    </span>
-                </button>
-            </form>
-        </div>
-
-
     </div>
 </template>
