@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useApi } from '~/composables/useApi';
-import { Users, Plus, Loader2, Shield, UserIcon, Edit, Trash2 } from 'lucide-vue-next'
+import { Users, Plus, Loader2, Shield, UserIcon, Edit, Trash2, Search, X, Filter } from 'lucide-vue-next'
 import { useProfileStore } from '~/stores/profile';
 
 definePageMeta({
@@ -13,16 +13,30 @@ const data = useApi()
 const profileStore = useProfileStore()
 const userLogin = computed(() => profileStore.user || {id: ''})
 
-const users = ref<any>([])
+
+const allUsers = ref<any[]>([])
 const loading = ref(false)
+
+const searchQuery = ref('')
+const roleFilter = ref<'all' | 'admin' | 'user'>('all')
+
+const users = computed(() => {
+    return allUsers.value.filter((u: any) => {
+
+        const matchesSearch = u.name?.toLowerCase().includes(searchQuery.value.toLowerCase()) || u.email?.toLowerCase().includes(searchQuery.value.toLowerCase())
+        const matchesRole = roleFilter.value === 'all' || u.role === roleFilter.value
+
+        return matchesSearch && matchesRole
+    })
+})
 
 const fetchUsers = async () => {
     loading.value = true
 
     try {
-        const allUsers = await <any> data.getUsers()
+        const fetchedUsers = await <any> data.getUsers()
 
-        users.value = allUsers.filter((u: any) => u.id !== userLogin.value.id)
+        allUsers.value = fetchedUsers.filter((u: any) => u.id !== userLogin.value.id)
     } catch (error) {
         throw error
     }
@@ -58,6 +72,46 @@ onMounted(() => {
                             Add User
                         </span>
                     </button>
+                </div>
+            </div>
+
+            <!--Search & Filter-->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 md:p-6 mb-6">
+                <div class="flex flex-col md:flex-row gap-4">
+
+                    <!--Search Input-->
+                    <div class="flex-1 relative">
+                        <Search class="absolute right-4 top-2.5 w-5 h-5 text-gray-400"/>
+                        <input type="text" v-model="searchQuery" placeholder="Search by name or email..."
+                        class="w-full pr-10 pl-12 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                        <button v-if="searchQuery" @click="searchQuery = ''"
+                        class="absolute left-4 top-2.5 p-1 hover:bg-gray-100 rounded-full transition-colors">
+                            <X class="w-4 h-4 text-gray-500"/>
+                        </button>
+                    </div>
+
+                    <!--Role Filter-->
+                    <div class="relative md:w-48">
+                        <Filter class="absolute right-3 top-2.5 w-5 h-5 text-gray-400 pointer-events-none"/>
+                        <select v-model="roleFilter"
+                        class="w-full pr-10 pl-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-blue-500 outline-none transition-all bg-white appearance-none cursor-pointer">
+                            <option value="all">All Roles</option>
+                            <option value="admin">Admin Only</option>
+                            <option value="user">User Only</option>
+                        </select>
+                    </div>
+
+                    <!--Filter Status-->
+                    <div v-if="roleFilter !== 'all'"
+                    class="pt-4 border-t border-gray-200">
+                        <p class="text-sm text-gray-600">
+                            Showing
+                            <span class="font-semibold text-blue-600">{{ users.length }}</span>
+                            of
+                            <span class="font-semibold">{{ allUsers.length }}</span>
+                            users
+                        </p>
+                    </div>
                 </div>
             </div>
 
