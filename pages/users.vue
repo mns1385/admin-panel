@@ -100,19 +100,19 @@ onMounted(() => {
                             <option value="user">User Only</option>
                         </select>
                     </div>
-
-                    <!--Filter Status-->
-                    <div v-if="roleFilter !== 'all'"
-                    class="pt-4 border-t border-gray-200">
-                        <p class="text-sm text-gray-600">
-                            Showing
-                            <span class="font-semibold text-blue-600">{{ users.length }}</span>
-                            of
-                            <span class="font-semibold">{{ allUsers.length }}</span>
-                            users
-                        </p>
-                    </div>
                 </div>
+            </div>
+
+            <!--Filter Status-->
+            <div v-if="roleFilter !== 'all'"
+            class="py-2 border-t border-gray-200">
+                <p class="text-sm text-center text-gray-600">
+                    Showing
+                    <span class="font-semibold text-blue-600">{{ users.length }}</span>
+                    of
+                    <span class="font-semibold">{{ allUsers.length }}</span>
+                    users
+                </p>
             </div>
 
             <!--Users Table-->
