@@ -25,8 +25,8 @@ const isError = ref(false)
 const showPassword = ref(false)
 const verifyCode = ref('')
 
-const closeModal = () => {
-    emit('update: modelValue', true)
+const closeModel = () => {
+    emit('update: modelValue', false)
 }
 
 const resetAll = () => {
@@ -134,7 +134,7 @@ const handleVerify = async () => {
             isError.value = false
 
             setTimeout(() => {
-                closeModal()
+                closeModel()
                 emit('success')
             }, 2000)
         }
@@ -159,7 +159,7 @@ const goBack = () => {
     <Teleport to="body">
         <Transition name="modal">
             
-            <div v-if="modelValue" @click.self="closeModal"
+            <div v-if="modelValue" @click.self="closeModel"
             class="fixed inset-0 z-50 flex items-center justify-center p-4">
                 <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
 
@@ -174,7 +174,7 @@ const goBack = () => {
                             <p class="text-sm text-gray-500 mt-1">
                                 Step {{ step === 1? '1': '2' }} of  2
                             </p>
-                            <button @click="closeModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <button @click="closeModel" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                                 <X class="w-5 h-5 text-gray-500"/>
                             </button>
                         </div>
