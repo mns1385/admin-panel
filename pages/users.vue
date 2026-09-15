@@ -2,6 +2,7 @@
 import { useApi } from '~/composables/useApi';
 import { Users, Plus, Loader2, Shield, UserIcon, Edit, Trash2, Search, X, Filter } from 'lucide-vue-next'
 import { useProfileStore } from '~/stores/profile';
+import AddUserModal from '~/components/users/AddUserModal.vue';
 
 definePageMeta({
     layout: 'default',
@@ -47,6 +48,8 @@ const fetchUsers = async () => {
 onMounted(() => {
     fetchUsers()
 })
+
+const isAddModalOpen = ref(false)
 </script>
 
 <template>
@@ -66,12 +69,15 @@ onMounted(() => {
                         </p>
                     </div>
 
-                    <button class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all hover:shadow-md flex items-center justify-center gap-2">        
+                    <button @click="isAddModalOpen = true"
+                    class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all hover:shadow-md flex items-center justify-center gap-2">        
                         <Plus class="w-4 h-4"/>
                         <span>
                             Add User
                         </span>
                     </button>
+
+                    <AddUserModal v-model="isAddModalOpen"/>
                 </div>
             </div>
 
