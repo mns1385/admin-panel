@@ -5,10 +5,7 @@ const props = defineProps<{
     modelValue: boolean
 }>()
 
-const emit = defineEmits<{
-    (e: 'update: modelValue', value: boolean):void
-    (e: 'success'):void
-}>()
+const emit = defineEmits(['update:modelValue', 'success'])
 
 const step = ref<1 | 2 | 3>(1)
 
@@ -26,7 +23,7 @@ const showPassword = ref(false)
 const verifyCode = ref('')
 
 const closeModal = () => {
-    emit('update: modelValue', false)
+    emit('update:modelValue', false)
 }
 
 const resetAll = () => {
