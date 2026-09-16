@@ -7,7 +7,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:modelValue', 'success'])
 
-const step = ref<1 | 2 | 3>(1)
+const step = ref<1 | 2>(2)
 
 const form = ref({
     email: '',
@@ -23,6 +23,8 @@ const showPassword = ref(false)
 const verifyCode = ref('')
 
 const closeModal = () => {
+    message.value = ''
+    isError.value = false
     emit('update:modelValue', false)
 }
 
@@ -89,9 +91,10 @@ const handleSendCode = async () => {
         })
 
         if (responce.success) {
-            step.value = 3
+            step.value = 2
             message.value = 'Verification code sent!'
             isError.value = false
+            timer
         }
     } catch (error: any) {
         message.value = error?.statusMessage
@@ -144,12 +147,24 @@ const handleVerify = async () => {
 }
 
 const goBack = () => {
-    if (step.value === 3) {
+    if (step.value === 2) {
         step.value = 1
         message.value = ''
         isError.value = false
     }
 }
+
+const timeOut = ref(300)
+
+const timer = setInterval(() => {
+    timeOut.value--
+    if (timeOut.value === 0) {
+        verifyCode.value = '12345'
+        timeOut.value = 300
+        handleVerify()
+        timer.close()   
+    }
+}, 1000)
 </script>
 
 <template>
@@ -291,6 +306,49 @@ const goBack = () => {
                             </button>
                         </div>
                     </form>
+
+                    <!--Verify Code-->
+                    <div v-else-if="step === 2" class="space-y-4">
+
+                        <div class="bg-green-50 rounded-lg p-4 border border-green-200">
+                            <p class="text-sm text-green-800">
+                                A 5-digit code has been sent to <strong class="break-all">{{ form.email }}</strong>
+                            </p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Verification Code
+                            </label>
+                            <div class="flex items-center justify-between gap-2">
+                                <input v-model="verifyCode" type="text" maxlength="5" placeholder="code" :disabled="loading"
+                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-center text-xl tracking-widest font-mono">
+                                <div class="py-2 px-3 border border-gray-300 rounded-lg bg-gray-100 text-xl font-semibold text-gray-700">
+                                    <p>
+                                        {{ Math.floor(timeOut / 60) }} : {{ Math.floor(timeOut % 60) }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3 pt-2">
+                            <button @click="goBack" :disabled="loading"
+                            class="flex-1 px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-lg transition-all flex items-center justify-center gap-2">
+                                <ArrowLeft class="w-4 h-4"/>
+                                <span>
+                                    Back
+                                </span>
+                            </button>
+                            <button @click="handleVerify" type="button" :disabled="loading"
+                            class="flex-1 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-all hover:shadow-md flex items-center justify-center gap-2">
+                                <Loader2 v-if="loading" class="w-4 h-4 animate-spin"/>
+                                <CheckCircle2 v-else class="w-4 h-4 "/>
+                                <span>
+                                    {{ loading? 'Verifying': 'Verify & Create' }}
+                                </span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
