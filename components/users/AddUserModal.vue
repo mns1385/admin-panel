@@ -7,7 +7,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:modelValue', 'success'])
 
-const step = ref<1 | 2>(2)
+const step = ref<1 | 2>(1)
 
 const form = ref({
     email: '',
