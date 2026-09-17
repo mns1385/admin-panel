@@ -46,7 +46,7 @@ export default defineEventHandler( async (event) => {
     } catch (error: any) {
         throw createError({
             statusCode: error.statusCode || 500,
-            statusMessage: error.statusCode || 'Failed to send code!'
+            statusMessage: error.statusMessage || 'Failed to send code!'
         })
     }
 })
