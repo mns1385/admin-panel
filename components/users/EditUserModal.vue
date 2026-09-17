@@ -187,7 +187,7 @@ const handleSave = async () => {
                             <Loader2 v-if="loading" class="w-4 h-4 animate-spin"/>
                             <Save v-else class="w-4 h-4"/>
                             <span>
-                                {{ loading? 'Saving': 'Save && Update' }}
+                                {{ loading? 'Saving': 'Save & Update' }}
                             </span>
                         </button>
                     </div>

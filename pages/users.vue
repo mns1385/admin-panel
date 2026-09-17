@@ -3,6 +3,7 @@ import { useApi } from '~/composables/useApi';
 import { Users, Plus, Loader2, Shield, UserIcon, Edit, Trash2, Search, X, Filter } from 'lucide-vue-next'
 import { useProfileStore } from '~/stores/profile';
 import AddUserModal from '~/components/users/AddUserModal.vue';
+import EditUserModal from '~/components/users/EditUserModal.vue';
 
 definePageMeta({
     layout: 'default',
@@ -50,6 +51,7 @@ onMounted(() => {
 })
 
 const isAddModalOpen = ref(false)
+const isEditModalOpen = ref(false)
 </script>
 
 <template>
@@ -192,9 +194,12 @@ const isAddModalOpen = ref(false)
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-2">
-                                            <button class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors ">
+                                            <button @click="isEditModalOpen = true" 
+                                            class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors ">
                                                 <Edit class="w-5 h-5"/>
                                             </button>
+                                            <EditUserModal v-model="isEditModalOpen" :user="user"/>
+
                                             <button class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors">
                                                 <Trash2 class="w-5 h-5"/>
                                             </button>
