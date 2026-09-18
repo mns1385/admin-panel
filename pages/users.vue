@@ -4,6 +4,7 @@ import { Users, Plus, Loader2, Shield, UserIcon, Edit, Trash2, Search, X, Filter
 import { useProfileStore } from '~/stores/profile';
 import AddUserModal from '~/components/users/AddUserModal.vue';
 import EditUserModal from '~/components/users/EditUserModal.vue';
+import DeleteUserModal from '~/components/users/DeleteUserModal.vue';
 
 definePageMeta({
     layout: 'default',
@@ -52,9 +53,11 @@ onMounted(() => {
 
 const isAddModalOpen = ref(false)
 const isEditModalOpen = ref(false)
+const isDeleteModalOpen = ref(false)
 </script>
 
 <template>
+
     <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-6 lg:p-8">
         <div class="max-w-7xl mx-auto">
 
@@ -200,9 +203,10 @@ const isEditModalOpen = ref(false)
                                             </button>
                                             <EditUserModal v-model="isEditModalOpen" :user="user"/>
 
-                                            <button class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors">
+                                            <button @click="isDeleteModalOpen = true" class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors">
                                                 <Trash2 class="w-5 h-5"/>
                                             </button>
+                                            <DeleteUserModal v-model="isDeleteModalOpen" :user="user"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -235,14 +239,16 @@ const isEditModalOpen = ref(false)
                             </span>
                         </div>
                         <div class="flex items-center gap-2 justify-end">
-                            <button class="px-3 py-1.5 text-blue-600 font-semibold hover:bg-blue-100 rounded-lg transition-colors flex items-center gap-1">
+                            <button @click="isAddModalOpen = true" class="px-3 py-1.5 text-blue-600 font-semibold hover:bg-blue-100 rounded-lg transition-colors flex items-center gap-1">
                                 <Edit class="w-3 h-3"/>
                                 Edit
                             </button>
-                            <button class="px-3 py-1.5 text-red-600 font-semibold hover:bg-red-100 rounded-lg transition-colors flex items-center gap-1">
+                            <EditUserModal v-model="isAddModalOpen" :user="user"/>
+                            <button @click="isDeleteModalOpen = true" class="px-3 py-1.5 text-red-600 font-semibold hover:bg-red-100 rounded-lg transition-colors flex items-center gap-1">
                                 <Trash2 class="w-3 h-3"/>
                                 Delete
                             </button>
+                            <EditUserModal v-model="isAddModalOpen" :user="user"/>
                         </div>
                     </div>
 
