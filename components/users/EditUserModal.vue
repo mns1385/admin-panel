@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useApi } from '~/composables/useApi'
-import { Loader2, UserCircle2, Shield, XCircle, CheckCircle2, X, Save} from 'lucide-vue-next'
+import { Loader2, UserIcon, Shield, XCircle, CheckCircle2, X, Save} from 'lucide-vue-next'
 
 const props = defineProps<{
     modelValue: boolean,
