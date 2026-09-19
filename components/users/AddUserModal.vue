@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { X, Plus, Loader2, CheckCircle2, XCircle, Eye, EyeOff, ArrowLeft, Mail, UserIcon, Shield } from 'lucide-vue-next'
+import { onMounted, onUnmounted } from 'vue';
 
 const props = defineProps<{
     modelValue: boolean
@@ -25,6 +26,8 @@ const verifyCode = ref('')
 const closeModal = () => {
     message.value = ''
     isError.value = false
+    clearInterval(timer)
+    resetAll()
     emit('update:modelValue', false)
 }
 
@@ -40,6 +43,7 @@ const resetAll = () => {
     verifyCode.value = '',
     isError.value = false,
     showPassword.value = false
+    timeOut.value = 300
 }
 
 watch(() => props.modelValue, (isOpen) => {
@@ -94,7 +98,7 @@ const handleSendCode = async () => {
             step.value = 2
             message.value = 'Verification code sent!'
             isError.value = false
-            timer
+            startTimer()
         }
     } catch (error: any) {
         message.value = error?.statusMessage
@@ -134,8 +138,10 @@ const handleVerify = async () => {
             isError.value = false
 
             setTimeout(() => {
-                closeModal()
                 emit('success')
+                resetAll()
+                clearInterval(timer)
+                closeModal()
             }, 2000)
         }
     } catch (error: any) {
@@ -151,20 +157,27 @@ const goBack = () => {
         step.value = 1
         message.value = ''
         isError.value = false
+        clearInterval(timer)
+        verifyCode.value = ''
     }
 }
 
 const timeOut = ref(300)
+let timer: any = null
 
-const timer = setInterval(() => {
-    timeOut.value--
-    if (timeOut.value === 0) {
-        verifyCode.value = '12345'
-        timeOut.value = 300
-        handleVerify()
-        timer.close()   
-    }
-}, 1000)
+const startTimer = () => {
+    timeOut.value = 300
+    timer = setInterval(() => {
+        timeOut.value--
+        if (timeOut.value <= 0) {
+            verifyCode.value = '00000'
+            handleVerify()
+            resetAll()
+            clearInterval(timer)
+            closeModal()
+        }
+    }, 1000)
+}
 </script>
 
 <template>

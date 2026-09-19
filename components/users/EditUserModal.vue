@@ -22,6 +22,7 @@ const loading = ref(false)
 
 const closeModal = () => {
     emit('update:modelValue', false)
+    resetAll()
 }
 
 const resetAll = () => {

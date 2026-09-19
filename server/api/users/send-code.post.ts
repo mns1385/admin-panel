@@ -26,7 +26,7 @@ export default defineEventHandler( async (event) => {
             })
         }
 
-        const code = randomInt(100000, 1000000).toString()
+        const code = randomInt(10000, 100000).toString()
         const timeOut = Date.now() + 5 * 60 * 1000
 
         userCreateStore.set(email, {

@@ -54,6 +54,17 @@ onMounted(() => {
 const isAddModalOpen = ref(false)
 const isEditModalOpen = ref(false)
 const isDeleteModalOpen = ref(false)
+const selectUser = ref<any>(null)
+
+const openEditModal = (user: any) => {
+    selectUser.value = user
+    isEditModalOpen.value = true
+}
+
+const openDeleteModal = (user: any) => {
+    selectUser.value = user
+    isDeleteModalOpen.value = true
+}
 </script>
 
 <template>
@@ -81,8 +92,6 @@ const isDeleteModalOpen = ref(false)
                             Add User
                         </span>
                     </button>
-
-                    <AddUserModal v-model="isAddModalOpen"/>
                 </div>
             </div>
 
@@ -197,16 +206,15 @@ const isDeleteModalOpen = ref(false)
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-2">
-                                            <button @click="isEditModalOpen = true" 
+                                            <button @click="openEditModal(user)" 
                                             class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors ">
                                                 <Edit class="w-5 h-5"/>
                                             </button>
-                                            <EditUserModal v-model="isEditModalOpen" :user="user"/>
 
-                                            <button @click="isDeleteModalOpen = true" class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors">
+                                            <button @click="openDeleteModal(user)" 
+                                            class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors">
                                                 <Trash2 class="w-5 h-5"/>
                                             </button>
-                                            <DeleteUserModal v-model="isDeleteModalOpen" :user="user"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -237,23 +245,26 @@ const isDeleteModalOpen = ref(false)
                             ]">
                                 {{ user.id === 'admin'? 'Admin': 'User' }}
                             </span>
-                        </div>
-                        <div class="flex items-center gap-2 justify-end">
-                            <button @click="isAddModalOpen = true" class="px-3 py-1.5 text-blue-600 font-semibold hover:bg-blue-100 rounded-lg transition-colors flex items-center gap-1">
-                                <Edit class="w-3 h-3"/>
-                                Edit
-                            </button>
-                            <EditUserModal v-model="isAddModalOpen" :user="user"/>
-                            <button @click="isDeleteModalOpen = true" class="px-3 py-1.5 text-red-600 font-semibold hover:bg-red-100 rounded-lg transition-colors flex items-center gap-1">
-                                <Trash2 class="w-3 h-3"/>
-                                Delete
-                            </button>
-                            <EditUserModal v-model="isAddModalOpen" :user="user"/>
+
+                            <div class="flex items-center gap-2 justify-end">
+                                <button @click="openEditModal(user)" class="px-3 py-1.5 text-blue-600 font-semibold hover:bg-blue-100 rounded-lg transition-colors flex items-center gap-1">
+                                    <Edit class="w-3 h-3"/>
+                                    Edit
+                                </button>
+                                <button @click="openDeleteModal(user)" class="px-3 py-1.5 text-red-600 font-semibold hover:bg-red-100 rounded-lg transition-colors flex items-center gap-1">
+                                    <Trash2 class="w-3 h-3"/>
+                                    Delete
+                                </button>
+                            </div>
                         </div>
                     </div>
 
                 </div>
             </div>
         </div>
+
+        <AddUserModal v-model="isAddModalOpen" @success="fetchUsers"/>
+        <EditUserModal v-model="isEditModalOpen" @success="fetchUsers" :user="selectUser"/>
+        <DeleteUserModal v-model="isDeleteModalOpen" @success="fetchUsers" :user="selectUser"/>
     </div>
 </template>
