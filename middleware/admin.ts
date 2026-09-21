@@ -1,21 +1,23 @@
 import { useApi } from "~/composables/useApi"
 
-export default defineNuxtRouteMiddleware(async (to, from) => {
-    const data = useApi()
+export default defineNuxtRouteMiddleware(async () => {
+    if (import.meta.client) {
+        const data = useApi()
 
-    const isAuthenticated = localStorage.getItem('isAuthenticated')
+        const isAuthenticated = localStorage.getItem('isAuthenticated')
 
-    if (isAuthenticated !== 'true') {
-        window.location.replace('/auth/login')
-        return abortNavigation()
-    }
+        if (isAuthenticated !== 'true') {
+            window.location.replace('/auth/login')
+            return abortNavigation()
+        }
 
-    const userId = localStorage.getItem('userId') || ''
+        const userId = localStorage.getItem('userId') || ''
 
-    const user = await <any> data.getUser(userId)
+        const user = await <any> data.getUser(userId)
 
-    if (user.role !== 'admin') {
-        window.location.replace('/')
-        return abortNavigation()
+        if (user.role !== 'admin') {
+            window.location.replace('/')
+            return abortNavigation()
+        }
     }
 })

@@ -8,7 +8,7 @@ import DeleteUserModal from '~/components/users/DeleteUserModal.vue';
 
 definePageMeta({
     layout: 'default',
-    middleware: 'auth'
+    middleware: 'admin'
 })
 
 const data = useApi()
