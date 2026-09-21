@@ -1,4 +1,3 @@
-import type { S } from "vue-router/dist/options-P-0BPDru.mjs"
 import { useApi } from "~/composables/useApi"
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
