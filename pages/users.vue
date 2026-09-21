@@ -231,30 +231,32 @@ const openDeleteModal = (user: any) => {
                     </div>
 
                     <div class="md:hidden divile-y divile-gray-200">
-                        <div v-for="user in users" :key="user.id" class="p-4">
-                            <div class="flex items-center gap-4 mb-3">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold">
-                                        {{ user.name.charAt(0).toUpperCase() }}
+                        <div v-for="user in users" :key="user.id" class="flex p-4 justify-between">
+                            <div>
+                                <div class="flex items-center gap-4 mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold">
+                                            {{ user.name.charAt(0).toUpperCase() }}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-800">
+                                            {{ user.name }}
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            {{ user.email }}
+                                        </p>
                                     </div>
                                 </div>
-                                <div>
-                                    <p class="font-medium text-gray-800">
-                                        {{ user.name }}
-                                    </p>
-                                    <p class="text-xs text-gray-500">
-                                        {{ user.email }}
-                                    </p>
-                                </div>
+                                <span :class="[
+                                    'inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold',
+                                    user.role === 'admin'? 'bg-purple-100 text-purple-700': 'bg-blue-100 text-blue-700'
+                                    ]">
+                                    {{ user.id === 'admin'? 'Admin': 'User' }}
+                                </span>
                             </div>
-                            <span :class="[
-                                'inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold',
-                                user.role === 'admin'? 'bg-purple-100 text-purple-700': 'bg-blue-100 text-blue-700'
-                            ]">
-                                {{ user.id === 'admin'? 'Admin': 'User' }}
-                            </span>
 
-                            <div class="flex items-center gap-2 justify-end">
+                            <div class="flex items-center justify-end">
                                 <button @click="openEditModal(user)" class="px-3 py-1.5 text-blue-600 font-semibold hover:bg-blue-100 rounded-lg transition-colors flex items-center gap-1">
                                     <Edit class="w-3 h-3"/>
                                     Edit
