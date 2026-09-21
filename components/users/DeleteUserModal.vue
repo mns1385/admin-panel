@@ -31,6 +31,7 @@ const handleDelete = async () => {
 
         setTimeout(() => {
             message.value = 'Delete the user successfuly!'
+            emit('success')
             closeModal()
         }, 1000)
     } catch (error: any) {
