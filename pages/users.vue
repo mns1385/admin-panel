@@ -170,6 +170,9 @@ const openDeleteModal = (user: any) => {
                                         Email
                                     </th>
                                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">
+                                        ID
+                                    </th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">
                                         Role
                                     </th>
                                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">
@@ -193,8 +196,13 @@ const openDeleteModal = (user: any) => {
                                             </span>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm font-semibold text-gray-600">
+                                    <td class="px-4 py-3 text-sm font-semibold text-gray-600">
                                         {{ user.email }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm font-semibold text-orange-700">
+                                        <span class="bg-orange-100 py-2 px-3 rounded-full">
+                                            #{{ user.id }}
+                                        </span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span :class="['inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold'
