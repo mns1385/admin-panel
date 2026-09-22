@@ -9,11 +9,29 @@ const props = defineProps<{
     order: any
 }>()
 
-const emit = defineEmits(['update:modelValue', 'status-changed'])
+const emit = defineEmits(['update:modelValue', 'success'])
 
-const user = computed(() => <any> data.getUser(props.order.userId) || {name: 'user', email: ''})
+const user = ref<any>({})
+
+const getUser = async () => {
+    isLoading.value = true
+
+    try {
+        user.value = await <any> data.getUser(props.order.userId)
+    } catch (error) {
+        emit('update:modelValue', false)
+    } finally {
+        isLoading.value = false
+    }
+}
+
+onMounted(async () => {
+    getUser()
+})
 
 const closeModal = () => {
+    message.value = ''
+    isError.value = false
     emit('update:modelValue', false)
 }
 
@@ -75,9 +93,8 @@ const handleStatusChange = async (event: Event) => {
 <template>
     <Teleport to="body">
         <Transition name="modal">
-            <div class="fixed inset-0 z-50 flex items-center justify-center p-4"
-            @click.self="closeModal">
-                <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+            <div v-if="modelValue" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click.self="closeModal"></div>
         
                 <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 z-10">
           
@@ -107,7 +124,7 @@ const handleStatusChange = async (event: Event) => {
                                 {{ user.name}}
                             </p>
                             <p class="text-sm text-gray-600">
-                                {{ user.Email }}
+                                {{ user.email }}
                             </p>
                         </div>
 

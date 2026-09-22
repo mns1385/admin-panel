@@ -5,7 +5,7 @@ import OrderModal from '~/components/orders/orderModal.vue'
 
 definePageMeta({
   layout: 'default',
-  middleware: 'auth'
+  middleware: 'admin'
 })
 
 const data = useApi()
@@ -222,7 +222,8 @@ onMounted(() => {
                     <table class="w-full">
                         <thead class="bg-gray-50 border-b border-gray-200">
                             <tr>
-                                <th class="px-6 py-4 text-left text-xs font-semibold txt-gray-600 uppercase">Order ID</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Order ID</th>                                
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Name</th>
                                 <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Amount</th>
                                 <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Date</th>
                                 <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Status</th>
@@ -235,6 +236,9 @@ onMounted(() => {
                                     <span class="font-mono font-semibold text-gray-700">#{{ order.id }}</span>
                                 </td>
                                 <td class="px-6 py-4">
+                                    <span class="font-mono font-semibold text-gray-700">{{ order.name }}</span>
+                                </td>
+                                <td class="px-6 py-4">
                                     <span class="font-semibold text-gray-800">{{ formatAmount(order.amount) }}</span>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-600">
@@ -245,10 +249,10 @@ onMounted(() => {
                                         {{ order.status }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-3">
                                     <button @click="openModal(order)"
-                                    class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                                        <Eye class="w-4 h-4" />
+                                    class=" text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                        <Eye class="w-6 h-6" />
                                     </button>
                                 </td>
                             </tr>

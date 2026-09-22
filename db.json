@@ -19,6 +19,16 @@
       "id": "myVDHVBgStA"
     }
   ],
-  "orders": [],
+  "orders": [
+    {
+      "userId": "myVDHVBgStA",
+      "name": "pen",
+      "status": "pending",
+      "amount": 12000,
+      "date": "2026-09-21T15:47:49.715Z",
+      "number": 3,
+      "id": "mzVDRVBhStA"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }
