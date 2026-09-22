@@ -1,26 +1,15 @@
 <script setup lang="ts">
-import { useSidebarStore } from '~/stores/sidebar';
-import { useProfileStore } from '~/stores/profile';
+import { useSidebarStore } from '~/stores/sidebar'
 
 const sidebarStore = useSidebarStore()
-const profileStore = useProfileStore()
 
-const user = computed(() => profileStore.user || {role: 'user'})
-
-onMounted(async () => {
-    await profileStore.onLoad()
-})
-
-const menuItems = user.value.role === 'admin'? [
+const menuItems = [
     {title: 'Dashboard', path: '/'},
     {title: 'Users', path: '/users'},
     {title: 'Products', path: '/products'},
     {title: 'Orders', path: '/orders'},
     {title: 'Analytics', path: '/analytics'},
     {title: 'Settings', path: '/settings'}
-]: [
-    {title: 'Dashboard', path: '/'},
-    {title: 'Products', path: '/products'}
 ]
 </script>
 
