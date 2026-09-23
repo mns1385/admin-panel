@@ -217,8 +217,9 @@ onMounted(() => {
                     </p>
                 </div>
 
+                <div v-else>
                 <!-- Desktop Table -->
-                <div v-else-if="!loading" class="hidden md:block overflow-x-auto">
+                <div class="hidden md:block overflow-x-auto">
                     <table class="w-full">
                         <thead class="bg-gray-50 border-b border-gray-200">
                             <tr>
@@ -261,13 +262,18 @@ onMounted(() => {
                 </div>
 
                 <!-- Mobile Cards -->
-                <div v-else-if="!loading" class="md:hidden divide-y divide-gray-200">
+                <div class="md:hidden divide-y divide-gray-200">
                     <div v-for="order in orders" :key="order.id" class="p-4">
-                        <div class="flex items-start justify-between mb-3">        
-                            <span :class="['px-3 py-1 rounded-full text-xs font-semibold border', getStatusColor(order.status)]">
-                                {{ order.status }}
-                            </span>
+                        <div class="flex items-start justify-between mb-3">   
+                            <div class="space-y-2 mb-3">
+                                <p class="text-lg font-bold text-gray-600 ml-2 mb-3">
+                                    {{ order.productName }}
+                                </p>    
+                                <span :class="['px-3 py-1 rounded-full text-xs font-semibold border', getStatusColor(order.status)]">
+                                    {{ order.status }}
+                                </span>
                             </div>
+                            
                             <div class="space-y-2 mb-3">
                                 <p class="text-sm text-gray-600">
                                     <span class="font-medium">Amount:</span> {{ formatAmount(order.amount) }}
@@ -276,14 +282,16 @@ onMounted(() => {
                                     <span class="font-medium">Date:</span> {{ formatDate(order.date) }}
                                 </p>
                             </div>
-                            <button @click="openModal(order)" class="w-full px-3 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
-                                <Eye class="w-4 h-4"/>
-                                View Details
-                            </button>
                         </div>
+                        <button @click="openModal(order)" class="w-full px-3 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+                            <Eye class="w-4 h-4"/>
+                            View Details
+                        </button>
                     </div>
                 </div>
             </div>
+            </div>
+        </div>
 
         <!-- Order Details Modal Component -->
         <OrderModal v-model="isOpenModal" :order="selectedOrder" @success="fetchOrders()"/>

@@ -6,7 +6,6 @@ const sidebarStore = useSidebarStore()
 const menuItems = [
     {title: 'Dashboard', path: '/'},
     {title: 'Users', path: '/users'},
-    {title: 'Products', path: '/products'},
     {title: 'Orders', path: '/orders'},
     {title: 'Analytics', path: '/analytics'},
     {title: 'Settings', path: '/settings'}
