@@ -145,7 +145,7 @@ export const useApi = () => {
         }
     }
 
-    const createOrder = async (order: {userId: string, name: string, status: string, amount: number, date: string, number: number}) => {
+    const createOrder = async (order: {userId: string, productName: string, status: string, amount: number, date: string, quantity: number}) => {
 
         if (!order) {
             throw createError({
@@ -169,7 +169,7 @@ export const useApi = () => {
         }
     }
 
-    const updateOrder = async (id: string, order: {userId: string, name: string, status: string, amount: number, date: string, number: number}) => {
+    const updateOrder = async (id: string, order: {userId: string, productName: string, status: string, amount: number, date: string, quantity: number}) => {
         if (!id) {
             throw createError({
                 statusCode: 400,

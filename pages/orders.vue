@@ -21,7 +21,7 @@ const isOpenModal = ref(false)
 
 const orders = computed(() => {
     return allOrders.value.filter((order) => {
-        const matchesSearch = order.name.toLowerCase().includes(searchQuery.value.toLowerCase()) || order.id.toLowerCase().includes(searchQuery.value.toLowerCase())
+        const matchesSearch = order.productName.toLowerCase().includes(searchQuery.value.toLowerCase()) || order.id.toLowerCase().includes(searchQuery.value.toLowerCase())
         const matchesStatus = statusFilter.value === 'all' || order.status === statusFilter.value
     
         return matchesSearch && matchesStatus
@@ -222,12 +222,12 @@ onMounted(() => {
                     <table class="w-full">
                         <thead class="bg-gray-50 border-b border-gray-200">
                             <tr>
-                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Order ID</th>                                
-                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Name</th>
-                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Amount</th>
-                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Date</th>
-                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Status</th>
-                                <th class="px-6 py-4 text-left textxs font-semibold text-gray-600 uppercase">Actions</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Order ID</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">product</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">amount</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">date</th>
+                                <th class="px-6 py-4 text-left textxs font-semibold text-gray-600 uppercase">status</th>
+                                <th class="px-6 py-4 text-left textxs font-semibold text-gray-600 uppercase">action</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
@@ -236,7 +236,7 @@ onMounted(() => {
                                     <span class="font-mono font-semibold text-gray-700">#{{ order.id }}</span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="font-mono font-semibold text-gray-700">{{ order.name }}</span>
+                                    <span class="font-mono font-semibold text-gray-700">{{ order.productName }}</span>
                                 </td>
                                 <td class="px-6 py-4">
                                     <span class="font-semibold text-gray-800">{{ formatAmount(order.amount) }}</span>

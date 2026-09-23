@@ -22,11 +22,11 @@
   "orders": [
     {
       "userId": "myVDHVBgStA",
-      "name": "pen",
+      "productName": "pen",
       "status": "pending",
       "amount": 12000,
       "date": "2026-09-21T15:47:49.715Z",
-      "number": 3,
+      "quantity": 3,
       "id": "mzVDRVBhStA"
     }
   ],
