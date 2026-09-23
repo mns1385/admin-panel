@@ -7,7 +7,6 @@ const menuItems = [
     {title: 'Dashboard', path: '/'},
     {title: 'Users', path: '/users'},
     {title: 'Orders', path: '/orders'},
-    {title: 'Analytics', path: '/analytics'},
     {title: 'Settings', path: '/settings'}
 ]
 </script>
