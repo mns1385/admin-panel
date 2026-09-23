@@ -221,7 +221,7 @@ const handleStatusChange = async (event: Event) => {
 
                         <!-- بخش ۴: وضعیت -->
                         <div>
-                            <div class="flex items-center gap-2mb-3">
+                            <div class="flex items-center gap-2 mb-3">
                                 <Package class="w-4 h-4 text-indigo-600" />
                                 <h4 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">
                                     Order Status
