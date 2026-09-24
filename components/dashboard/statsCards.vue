@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Users, Package, DollarSign, TrendingUp } from 'lucide-vue-next'
+import { useDashboardStore } from '~/stores/dashboard'
 
 const props = defineProps<{
-    totalUsers: number
-    totalOrders: number
+    totalUsers: number,
+    totalOrders: number,
     totalRevenue: number
 }>()
 
@@ -26,7 +27,7 @@ const stats = [
     },
     {
         title: 'Total Revenue',
-        value: `$${props.totalRevenue.toLocaleString()}`,
+        value: `$${props.totalRevenue.toString()}`,
         icon: DollarSign,
         color: 'from-green-500 to-green-600',
         bgColor: 'bg-green-100',
@@ -44,8 +45,8 @@ const stats = [
 </script>
 
 <template>
-    <div lass="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div v-for="(stat, index) in stats" :key="index"
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div v-for="stat in stats"
         class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all">
             <div class="flex items-center justify-between mb-4">
                 <div :class="['w-12 h-12 rounded-xl flex items-center justify-center', stat.bgColor]">

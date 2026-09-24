@@ -1,49 +1,19 @@
 <script setup lang="ts">
-import { useApi } from '~/composables/useApi'
-import StatsCards from '~/components/dashboard/statsCards.vue'
-import OrdersChart from '~/components/dashboard/ordersChart.vue'
-import RecentOrders from '~/components/dashboard/recentOrders.vue'
-import RecentUsers from '~/components/dashboard/recentUsers.vue'
+import { useDashboardStore } from '~/stores/dashboard'
+import StatsCards from '~/components/dashboard/StatsCards.vue'
+import OrdersChart from '~/components/dashboard/OrdersChart.vue'
+import RecentOrders from '~/components/dashboard/RecentOrders.vue'
+import RecentUsers from '~/components/dashboard/RecentUsers.vue'
 
 definePageMeta({
     layout: 'default',
-    middleware: 'admin'
+    middleware: 'auth'
 })
 
-const data = useApi()
+const dashboardStore = useDashboardStore()
 
-const users = ref<any[]>([])
-const orders = ref<any[]>([])
-const loading = ref(false)
-
-const stats = computed(() => {
-    const totalUsers = users.value.length
-    const totalOrders = orders.value.length
-    const totalRevenue = orders.value.reduce((sum, order) => sum + (order.amount || 0), 0)
-  
-    return { totalUsers, totalOrders, totalRevenue }
-})
-
-const fetchDashboardData = async () => {
-    loading.value = true
-    
-    try {
-        const [usersData, ordersData] = await Promise.all([
-            <any> data.getUsers(),
-            <any> data.getOrders()
-        ])
-
-        users.value = usersData
-        orders.value = ordersData
-    } catch (error) {
-        console.error('Failed to fetch dashboard data:', error)
-    } finally {
-        loading.value = false
-    }
-}
-
-onMounted(() => {
-    fetchDashboardData()
+onMounted(async () => {
+    await dashboardStore.fetchDashboardData()
 })
 </script>
 
@@ -61,21 +31,11 @@ onMounted(() => {
                 </p>
             </div>
 
-            <!-- Loading State -->
-            <div v-if="loading" class="flex items-center justify-center py-20">
-                <div class="text-center">
-                    <div class="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                    <p class="text-gray-500">
-                        Loading dashboard data...
-                    </p>
-                </div>
-            </div>
-
             <!-- Dashboard Content -->
-            <div v-else class="space-y-6">
+            <div class="space-y-6">
         
                 <!-- Stats Cards -->
-                <StatsCards :total-users="stats.totalUsers" :total-orders="stats.totalOrders" :total-revenue="stats.totalRevenue"/>
+                <StatsCards :total-users="dashboardStore.totalUsers" :total-orders="dashboardStore.totalOrders" :total-revenue="dashboardStore.totalRevenue"/>
 
                 <!-- Charts and Recent Data -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -87,12 +47,12 @@ onMounted(() => {
 
                     <!-- Recent Orders (1/3 width) -->
                     <div class="lg:col-span-1">
-                        <RecentOrders :orders="orders" />
+                        <RecentOrders :orders="dashboardStore.orders" />
                     </div>
                 </div>
 
                 <!-- Recent Users -->
-                <RecentUsers :users="users"/>
+                <RecentUsers :users="dashboardStore.users"/>
             </div>
         </div>
     </div>

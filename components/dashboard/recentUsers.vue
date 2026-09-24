@@ -23,11 +23,11 @@ const props = defineProps<{
         </div>
 
         <div class="space-y-3">
-            <div v-for="user in users.slice(0, 5)" :key="user.id"
+            <div v-for="user in props.users.slice(0, 5)" :key="user.id"
             class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition-colors">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold">
-                        {{ user.name?.charAt(0)?.toUpperCae() }}
+                        {{ user.name.charAt(0).toUpperCae() }}
                     </div>
                     <div>
                         <p class="font-medium text-gray-800 text-sm">
