@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useDashboardStore } from '~/stores/dashboard'
+import { Loader2 } from 'lucide-vue-next'
 import StatsCards from '~/components/dashboard/StatsCards.vue'
 import OrdersChart from '~/components/dashboard/OrdersChart.vue'
 import RecentOrders from '~/components/dashboard/RecentOrders.vue'
@@ -35,8 +36,15 @@ onMounted(async () => {
                 </p>
             </div>
 
+            <div v-if="loading" class="p-12 text-center">
+                <Loader2 class="w-8 h-8 animate-spin text-blue-600 mx-auto mb-3"/>
+                <p class="text-gray-500">
+                    Loading Data...
+                </p>
+            </div>
+
             <!-- Dashboard Content -->
-            <div class="space-y-6">
+            <div v-else class="space-y-6">
         
                 <!-- Stats Cards -->
                 <StatsCards :total-users="dashboardStore.totalUsers" :total-orders="dashboardStore.totalOrders" :total-revenue="dashboardStore.totalRevenue"/>
