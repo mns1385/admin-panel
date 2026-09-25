@@ -24,7 +24,7 @@ const viewAll = () => {
                 </p>
             </div>
             <button @click="viewAll()"
-            class="text-sm text-blue-600 hover:text-blue-700 fnt-medium">
+            class="text-sm text-blue-600 hover:text-blue-700 fnt-medium hover:bg-blue-100 py-1 px-3 rounded-full transition-all">
                 View All
             </button>
         </div>

@@ -49,7 +49,7 @@ const viewAll = () => {
                 </p>
             </div>
             <button @click="viewAll()"
-            class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+            class="text-sm text-blue-600 hover:text-blue-700 font-medium hover:bg-blue-100 py-1 px-3 transition-all rounded-full">
                 View All
             </button>
         </div>
