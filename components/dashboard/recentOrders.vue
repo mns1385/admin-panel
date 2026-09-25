@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { Package, Eye } from 'lucide-vue-next'
+import { Package } from 'lucide-vue-next'
 
 const props = defineProps<{
     orders: any[]
 }>()
+
+const orders = computed(() => props.orders)
 
 const formatAmount = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -29,6 +31,10 @@ const getStatusColor = (status: string) => {
 
     return colors[status] || 'bg-gray-100 text-gray-700'
 }
+
+const viewAll = () => {
+    navigateTo('/orders')
+}
 </script>
 
 <template>
@@ -42,7 +48,8 @@ const getStatusColor = (status: string) => {
                     Latest 5 orders
                 </p>
             </div>
-            <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+            <button @click="viewAll()"
+            class="text-sm text-blue-600 hover:text-blue-700 font-medium">
                 View All
             </button>
         </div>

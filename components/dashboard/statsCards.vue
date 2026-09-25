@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Users, Package, DollarSign, TrendingUp } from 'lucide-vue-next'
-import { useDashboardStore } from '~/stores/dashboard'
 
 const props = defineProps<{
     totalUsers: number,
@@ -8,7 +7,7 @@ const props = defineProps<{
     totalRevenue: number
 }>()
 
-const stats = [
+const stats = computed(() => [
     {
         title: 'Total Users',
         value: props.totalUsers,
@@ -41,7 +40,7 @@ const stats = [
         bgColor: 'bg-orange-100',
         textColor: 'text-orange-600'
     }
-]
+])
 </script>
 
 <template>

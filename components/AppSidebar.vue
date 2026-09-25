@@ -4,7 +4,7 @@ import { useSidebarStore } from '~/stores/sidebar'
 const sidebarStore = useSidebarStore()
 
 const menuItems = [
-    {title: 'Dashboard', path: '/'},
+    {title: 'Dashboard', path: '/dashboard'},
     {title: 'Users', path: '/users'},
     {title: 'Orders', path: '/orders'},
     {title: 'Settings', path: '/settings'}
