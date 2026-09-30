@@ -47,14 +47,14 @@ onMounted(async () => {
             <div v-else class="space-y-6">
         
                 <!-- Stats Cards -->
-                <StatsCards :total-users="dashboardStore.totalUsers" :total-orders="dashboardStore.totalOrders" :total-revenue="dashboardStore.totalRevenue"/>
+                <StatsCards :total-users="dashboardStore.totalUsers" :total-orders="dashboardStore.totalOrders" :total-revenue="dashboardStore.totalRevenue" :orders="dashboardStore.orders"/>
 
                 <!-- Charts and Recent Data -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
                     <!-- Orders Chart (2/3 width) -->
                     <div class="lg:col-span-2">
-                        <OrdersChart />
+                        <OrdersChart :orders="dashboardStore.orders"/>
                     </div>
 
                     <!-- Recent Orders (1/3 width) -->

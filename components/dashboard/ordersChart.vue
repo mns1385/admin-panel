@@ -1,16 +1,6 @@
 <script setup lang="ts">
 import { Line } from 'vue-chartjs'
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    Filler
-} from 'chart.js'
+import {Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler} from 'chart.js'
 
 ChartJS.register(
     CategoryScale,
@@ -23,22 +13,54 @@ ChartJS.register(
     Filler
 )
 
-const chartData = ref({
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    datasets: [{
-        label: 'Orders',
-        data: [12, 19, 8, 15, 22, 18, 25],
-        brderColor: '#3B82F6',
-        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-        borderWidth: 3,
-        tension: 0.4,
-        fill: true,
-        pointBackgroundColor: '#3B82F6',
-        pointBorderColor: '#fff',
-        pointBorderWidth: 2,
-        pointRadius: 5,
-        pointHoverRadius: 7
-    }]
+const props = defineProps<{
+    orders: any[]
+}>()
+
+const chartData = computed(() => {
+    const dateToday = new Date()
+    dateToday.setHours(0, 0, 0, 0)
+
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+    const last7Days = Array.from({length: 7}, (_,i) => {
+        const date = new Date(dateToday)
+        date.setDate(dateToday.getDate() - (6 - i))
+
+        return {
+            label: days[date.getDay()],
+            dateStr: date.toISOString().split("T")[0],
+            count: 0
+        }
+    })
+
+    props.orders.forEach(order => {
+        const orderDate = order.date?.split("T")[0]
+        const dayData = last7Days.find(d => d.dateStr === orderDate)
+        if (dayData) {
+            dayData.count++
+        }
+    })
+
+    return {
+        labels: last7Days.map(d => d.label),
+        datasets: [
+            {
+            label: 'Orders',
+            data: last7Days.map(d => d.count),
+            borderColor: '#3B82F6',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            borderWidth: 3,
+            tension: 0.4,
+            fill: true,
+            pointBackgroundColor: '#3B82F6',
+            poitBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+            pointHoverRadius: 7
+            }
+        ]
+    }
 })
 
 const chartOptions = ref({

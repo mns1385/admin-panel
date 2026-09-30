@@ -4,8 +4,35 @@ import { Users, Package, DollarSign, TrendingUp } from 'lucide-vue-next'
 const props = defineProps<{
     totalUsers: number,
     totalOrders: number,
-    totalRevenue: number
+    totalRevenue: number,
+    orders: any[]
 }>()
+
+const growthRate = computed(() => {
+    if (!props.orders || props.orders.length === 0) {
+        return 0
+    }
+
+    const dateToday = new Date()
+    dateToday.setHours(0, 0, 0, 0)
+
+    const revenueToday = props.orders
+    .filter((o: any) => o.date.split("T")[0] === dateToday.toISOString().split("T")[0])
+    .reduce((sum: number, order: any) => sum + (order.amount || 0), 0)
+
+    dateToday.setDate(dateToday.getDate() - 7)
+    const revenueWeekAgo = props.orders
+    .filter((o: any) => o.date.split("T")[0] === dateToday.toISOString().split("T")[0])
+    .reduce((sum: number, order: any) => sum + (order.amount || 0), 0)
+
+    if (revenueWeekAgo === 0) {
+        return 0
+    }
+
+    const growth = ((revenueToday - revenueWeekAgo) / revenueWeekAgo) * 100
+
+    return growth
+})
 
 const stats = computed(() => [
     {
@@ -34,7 +61,7 @@ const stats = computed(() => [
     },
     {
         title: 'Growth Rate',
-        value: '+12.5%',
+        value: `${growthRate.value}%`,
         icon: TrendingUp,
         color: 'from-orange-500 to-orange-600',
         bgColor: 'bg-orange-100',
