@@ -4,7 +4,7 @@ export default defineNuxtRouteMiddleware(() => {
         let isAuthenticated = localStorage.getItem('isAuthenticated')
 
         if (isAuthenticated !== 'true') {
-            window.location.replace('/auth/login')
+            window.location.replace('/')
             return abortNavigation()
         }
     }

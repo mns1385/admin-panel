@@ -3,7 +3,7 @@ export default defineNuxtRouteMiddleware(() => {
         const isAuthenticated = localStorage.getItem('isAuthenticated')
 
         if (isAuthenticated === 'true') {
-            window.location.replace('/')
+            window.location.replace('/dashboard')
             return abortNavigation()
         }
     }
