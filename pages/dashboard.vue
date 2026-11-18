@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useDashboardStore } from '~/stores/dashboard'
 import { Loader2 } from 'lucide-vue-next'
-import StatsCards from '~/components/dashboard/StatsCards.vue'
+import StatsCards from '~/components/dashboard/statsCards.vue'
 import OrdersChart from '~/components/dashboard/OrdersChart.vue'
 import RecentOrders from '~/components/dashboard/RecentOrders.vue'
 import RecentUsers from '~/components/dashboard/RecentUsers.vue'
